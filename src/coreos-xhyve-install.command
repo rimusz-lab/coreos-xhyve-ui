@@ -19,6 +19,7 @@
 
     # copy files to ~/coreos-xhyve-ui/bin
     cp -f "$1"/files/* ~/coreos-xhyve-ui/bin
+    cp -f "$1"/bin/xhyve ~/coreos-xhyve-ui/bin
     chmod 755 ~/coreos-xhyve-ui/bin/*
 
     # copy user-data

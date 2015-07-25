@@ -9,6 +9,9 @@
 # get App's Resources folder
 res_folder=$(cat ~/coreos-xhyve-ui/.env/resouces_path)
 
+# copy xhyve to bin folder
+cp -f "${res_folder}"/bin/xhyve ~/coreos-xhyve-ui/bin
+
 # get VM IP
 vm_ip=$(cat ~/coreos-xhyve-ui/.env/ip_address)
 
