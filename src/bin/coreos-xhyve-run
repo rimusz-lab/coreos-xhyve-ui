@@ -40,7 +40,7 @@ CMDLINE="${CMDLINE} cloud-config-url=${CLOUD_CONFIG}"
 
 MEMORY=${MEMORY:-1024}
 MEM="-m ${MEMORY}M"
-#SMP="-c 2"
+SMP="-c 2"
 NET="-s 2:0,virtio-net"
 PCI_DEV="-s 0:0,hostbridge -s 31,lpc"
 LPC_DEV="-l com1,stdio"

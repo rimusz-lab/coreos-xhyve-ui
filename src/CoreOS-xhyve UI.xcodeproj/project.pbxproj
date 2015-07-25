@@ -16,7 +16,6 @@
 		019662121B04C562005FA955 /* bin in Resources */ = {isa = PBXBuildFile; fileRef = 019662111B04C562005FA955 /* bin */; };
 		019662141B04C598005FA955 /* settings in Resources */ = {isa = PBXBuildFile; fileRef = 019662131B04C598005FA955 /* settings */; };
 		019662181B04C6EA005FA955 /* files in Resources */ = {isa = PBXBuildFile; fileRef = 019662171B04C6EA005FA955 /* files */; };
-		0196621B1B04C758005FA955 /* fleet in Resources */ = {isa = PBXBuildFile; fileRef = 0196621A1B04C758005FA955 /* fleet */; };
 		01AD94BF1A278C94009A400B /* fetch_latest_iso.command in Resources */ = {isa = PBXBuildFile; fileRef = 01AD94BE1A278C94009A400B /* fetch_latest_iso.command */; };
 		01B675D61B602FC2004349CC /* check_vm_status.command in Resources */ = {isa = PBXBuildFile; fileRef = 01B675D51B602FC2004349CC /* check_vm_status.command */; };
 		01CFC2DE1A2AA48300F251C2 /* change_release_channel.command in Resources */ = {isa = PBXBuildFile; fileRef = 01CFC2DB1A2AA48300F251C2 /* change_release_channel.command */; };
@@ -46,7 +45,6 @@
 		019662111B04C562005FA955 /* bin */ = {isa = PBXFileReference; lastKnownFileType = folder; path = bin; sourceTree = SOURCE_ROOT; };
 		019662131B04C598005FA955 /* settings */ = {isa = PBXFileReference; lastKnownFileType = folder; path = settings; sourceTree = SOURCE_ROOT; };
 		019662171B04C6EA005FA955 /* files */ = {isa = PBXFileReference; lastKnownFileType = folder; path = files; sourceTree = SOURCE_ROOT; };
-		0196621A1B04C758005FA955 /* fleet */ = {isa = PBXFileReference; lastKnownFileType = folder; path = fleet; sourceTree = SOURCE_ROOT; };
 		01AD94BE1A278C94009A400B /* fetch_latest_iso.command */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = fetch_latest_iso.command; sourceTree = "<group>"; };
 		01B675D51B602FC2004349CC /* check_vm_status.command */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = check_vm_status.command; sourceTree = "<group>"; };
 		01CFC2DB1A2AA48300F251C2 /* change_release_channel.command */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = change_release_channel.command; sourceTree = "<group>"; };
@@ -88,7 +86,6 @@
 		014E6F8B18B63AF700E697C0 /* Installation Files */ = {
 			isa = PBXGroup;
 			children = (
-				0196621A1B04C758005FA955 /* fleet */,
 				019662171B04C6EA005FA955 /* files */,
 				019662131B04C598005FA955 /* settings */,
 				01741B56190DB7B800BB1F91 /* coreos-xhyve-install.command */,
@@ -270,7 +267,6 @@
 				01741B63190DB80500BB1F91 /* first-init.command in Resources */,
 				01B675D61B602FC2004349CC /* check_vm_status.command in Resources */,
 				01741B57190DB7B800BB1F91 /* coreos-xhyve-install.command in Resources */,
-				0196621B1B04C758005FA955 /* fleet in Resources */,
 				01CFC2DE1A2AA48300F251C2 /* change_release_channel.command in Resources */,
 				01E2854E18A6C4E300BC630D /* Credits.rtf in Resources */,
 				01E2855418A6C4E300BC630D /* MainMenu.xib in Resources */,

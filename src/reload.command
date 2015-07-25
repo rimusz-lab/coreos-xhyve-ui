@@ -22,6 +22,7 @@ i=0
 until "${res_folder}"/check_vm_status.command | grep "VM is stopped" >/dev/null 2>&1; do i=$(( (i+1) %4 )); printf "\r${spin:$i:1}"; sleep .1; done
 #
 
+sleep 3
 echo " "
 echo "CoreOS VM will be started in a new Terminal.app window ..."
 # Start VM
@@ -40,14 +41,26 @@ export PATH=${HOME}/coreos-xhyve-ui/bin:$PATH
 
 # set fleetctl endpoint
 export FLEETCTL_ENDPOINT=http://$vm_ip:2379
+export FLEETCTL_DRIVER=etcd
+export FLEETCTL_STRICT_HOST_KEY_CHECKING=false
+#
 echo "fleetctl list-machines:"
 fleetctl list-machines
 echo ""
-# 
-echo "fleet list-units:"
-fleetctl list-units
+
+# deploy fleet units from ~/coreos-xhyve-ui/fleet
+if [ "$(ls ~/coreos-xhyve-ui/fleet | grep -o -m 1 service)" = "service" ]
+then
+    cd ~/coreos-xhyve-ui/fleet
+    echo " "
+    echo "Starting all fleet units in ~/coreos-xhyve-ui/fleet:"
+    fleetctl start *.service
+    echo " "
+    echo "fleetctl list-units:"
+    fleetctl list-units
+    echo " "
+fi
 #
-echo ""
 echo "CoreOS VM was reloaded !!!"
 echo ""
 pause 'Press [Enter] key to continue...'

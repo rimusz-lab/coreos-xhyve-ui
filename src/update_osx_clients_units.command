@@ -67,25 +67,6 @@ chmod +x ~/coreos-xhyve-ui/bin/docker
 echo "docker was copied to ~/coreos-xhyve-ui/bin"
 #
 
-#
-echo " "
-# set fleetctl tunnel
-export FLEETCTL_ENDPOINT=http://$vm_ip:2379
-export FLEETCTL_DRIVER=etcd
-export FLEETCTL_STRICT_HOST_KEY_CHECKING=false
-
-cd ~/coreos-xhyve-ui/fleet
-
-#
-  echo "Reinstalling fleet-ui.service "
-  ~/coreos-xhyve-ui/bin/fleetctl destroy fleet-ui.service
-  ~/coreos-xhyve-ui/bin/fleetctl start fleet-ui.service
-#
-  echo "Reinstalling dockerui.service "
-  ~/coreos-xhyve-ui/bin/fleetctl destroy dockerui.service
-  ~/coreos-xhyve-ui/bin/fleetctl start dockerui.service
-#
-
 echo " "
 echo "Update has finished !!!"
 pause 'Press [Enter] key to continue...'

@@ -9,7 +9,6 @@
     mkdir ~/coreos-xhyve-ui/bin
     mkdir ~/coreos-xhyve-ui/cloud-init
     mkdir ~/coreos-xhyve-ui/fleet
-    mkdir ~/coreos-xhyve-ui/my_fleet
     ###mkdir ~/coreos-xhyve-ui/docker_images
     ###mkdir ~/coreos-xhyve-ui/rkt_images
     ###mkdir ~/coreos-xhyve-ui/share
@@ -17,9 +16,6 @@
 
     # cd to App's Resources folder
     cd "$1"
-
-    # copy fleet units
-    cp -f "$1"/fleet/*.service ~/coreos-xhyve-ui/fleet/
 
     # copy files to ~/coreos-xhyve-ui/bin
     cp -f "$1"/files/* ~/coreos-xhyve-ui/bin

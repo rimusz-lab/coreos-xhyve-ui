@@ -10,6 +10,20 @@ res_folder=$(cat ~/coreos-xhyve-ui/.env/resouces_path)
 vm_ip=$(cat ~/coreos-xhyve-ui/.env/ip_address)
 
 echo " "
+# Check if set channel's images are present
+CHANNEL=$(cat ~/coreos-xhyve-ui/custom.conf | grep CHANNEL= | head -1 | cut -f2 -d"=")
+LATEST=$(ls -r ~/coreos-xhyve-ui/imgs/${CHANNEL}.*.vmlinuz | head -n 1 | sed -e "s,.*${CHANNEL}.,," -e "s,.coreos_.*,," )
+
+if [[ -z ${LATEST} ]]; then
+    echo "Couldn't find anything to load locally (${CHANNEL} channel)."
+    echo "Fetching lastest $CHANNEL channel ISO ..."
+    echo " "
+    cd ~/coreos-xhyve-ui/
+    "${res_folder}"/bin/coreos-xhyve-fetch -f custom.conf
+fi
+
+
+echo " "
 echo "CoreOS VM will be started in a new Terminal.app window ..."
 # Start VM
 open -a Terminal.app "${res_folder}"/CoreOS-xhyve_UI_VM.command
@@ -32,34 +46,29 @@ export PATH=${HOME}/coreos-xhyve-ui/bin:$PATH
 export ETCDCTL_PEERS=http://$vm_ip:2379
 echo "etcdctl ls /:"
 etcdctl --no-sync ls /
+echo " "
+#
 
 # set fleetctl endpoint
 export FLEETCTL_ENDPOINT=http://$vm_ip:2379
 export FLEETCTL_DRIVER=etcd
 export FLEETCTL_STRICT_HOST_KEY_CHECKING=false
-
-
-# list fleet units
-cd ~/coreos-xhyve-ui/fleet
-echo " "
-echo "Starting fleet units in ~/coreos-xhyve-ui/fleet:"
-fleetctl start *.service
-echo "fleetctl list-units:"
-fleetctl list-units
+#
+echo "fleetctl list-machines:"
+fleetctl list-machines
 echo " "
 
-# deploy fleet units from ~/coreos-xhyve-ui/my_fleet
-if [ "$machine_status" = "not created" ]
+# deploy fleet units from ~/coreos-xhyve-ui/fleet
+if [ "$(ls ~/coreos-xhyve-ui/fleet | grep -o -m 1 service)" = "service" ]
 then
-    if [ "$(ls ~/coreos-xhyve-ui/my_fleet | grep -o -m 1 service)" = "service" ]
-    then
-        cd ~/coreos-xhyve-ui/my_fleet
-        echo "Start all fleet units in ~/coreos-xhyve-ui/my_fleet:"
-        fleetctl start *.service
-        echo "fleetctl list-units:"
-        fleetctl list-units
-        echo " "
-    fi
+    cd ~/coreos-xhyve-ui/fleet
+    echo " "
+    echo "Starting all fleet units in ~/coreos-xhyve-ui/fleet:"
+    fleetctl start *.service
+    echo " "
+    echo "fleetctl list-units:"
+    fleetctl list-units
+    echo " "
 fi
 
 cd ~/

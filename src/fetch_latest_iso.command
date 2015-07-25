@@ -10,7 +10,7 @@ function pause(){
 read -p "$*"
 }
 
-echo "Fetching lastet iso ..."
+echo "Fetching lastest iso ..."
 echo " "
 
 cd ~/coreos-xhyve-ui/

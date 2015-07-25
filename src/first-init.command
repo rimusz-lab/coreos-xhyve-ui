@@ -3,7 +3,6 @@
 #  first-init.command
 #
 
-
 # get App's Resources folder
 res_folder=$(cat ~/coreos-xhyve-ui/.env/resouces_path)
 
@@ -20,19 +19,21 @@ echo "Reading ssh key from $HOME/.ssh/id_rsa.pub  "
 file="$HOME/.ssh/id_rsa.pub"
 if [ -f "$file" ]
 then
-    echo "$file found, updating custom.conf..."
+    echo " $file found, updating custom.conf..."
     echo "SSHKEY='$(cat $HOME/.ssh/id_rsa.pub)'" >> ~/coreos-xhyve-ui/custom.conf
 else
-    echo "$file not found."
-    echo "please run 'ssh-keygen -t rsa' before you continue !!!"
-    pause 'Press [Enter] key to continue...'
+    echo " $file not found."
+    echo " please run 'ssh-keygen -t rsa' before you continue !!!"
+    pause ' Press [Enter] key to continue...'
     echo "SSHKEY="$(cat $HOME/.ssh/id_rsa.pub)"" >> ~/coreos-xhyve-ui/custom.conf
 fi
 #
 
 # save user password to file
 echo "  "
-echo "Please type your password followed by [ENTER] to be saved and used later one for sudo:"
+echo "Your password will be saved to '~/coreos-xhyve-ui/.env/password' "
+echo "and later one used for 'sudo' !!!"
+echo "Please type your password followed by [ENTER]:"
 read -s password
 echo -n ${password} | base64 > ~/coreos-xhyve-ui/.env/password
 #
@@ -59,12 +60,12 @@ while [ $LOOP -gt 0 ]
 do
     VALID_MAIN=0
     echo " "
-    echo " Set CoreOS Release Channel:"
+    echo "Set CoreOS Release Channel:"
     echo " 1)  Alpha "
     echo " 2)  Beta "
     echo " 3)  Stable "
     echo " "
-    echo "Select an option:"
+    echo " Select an option:"
 
     read RESPONSE
     XX=${RESPONSE:=Y}
@@ -73,7 +74,7 @@ do
     then
         VALID_MAIN=1
         sed -i "" "s/CHANNEL=stable/CHANNEL=alpha/" ~/coreos-xhyve-ui/custom.conf
-        sed -i "" "s/CHANNEL=beta'/CHANNEL=alpha/" ~/coreos-xhyve-ui/custom.conf
+        sed -i "" "s/CHANNEL=beta/CHANNEL=alpha/" ~/coreos-xhyve-ui/custom.conf
         LOOP=0
     fi
 
@@ -89,7 +90,7 @@ do
     then
         VALID_MAIN=1
         sed -i "" "s/CHANNEL=alpha/CHANNEL=stable/" ~/coreos-xhyve-ui/custom.conf
-        sed -i "" "s/CHANNEL=beta/channel=stable/" ~/coreos-xhyve-ui/custom.conf
+        sed -i "" "s/CHANNEL=beta/CHANNEL=stable/" ~/coreos-xhyve-ui/custom.conf
         LOOP=0
     fi
 
@@ -106,7 +107,7 @@ echo " "
 echo "Fetching lastest iso ..."
 echo " "
 cd ~/coreos-xhyve-ui/
-./coreos-xhyve-fetch -f custom.conf
+"${res_folder}"/bin/coreos-xhyve-fetch -f custom.conf
 echo " "
 #
 
@@ -116,15 +117,23 @@ pause 'Press [Enter] key to continue...'
 # Start VM
 open -a Terminal.app "${res_folder}"/CoreOS-xhyve_UI_VM.command
 #
+
 # wait till VM is booted up
 echo "Waiting for VM to boot up..."
+sleep 5
+# get VM IP
 spin='-\|/'
 i=0
-until ! ping -c1 $vm_ip >/dev/null 2>&1; do i=$(( (i+1) %4 )); printf "\r${spin:$i:1}"; sleep .1; done
-
-
-# get VM IP
+until cat ~/coreos-xhyve-ui/.env/ip_address | grep 192.168.64 >/dev/null 2>&1; do i=$(( (i+1) %4 )); printf "\r${spin:$i:1}"; sleep .1; done
 vm_ip=$(cat ~/coreos-xhyve-ui/.env/ip_address)
+
+echo $vm_ip
+
+#
+spin='-\|/'
+i=0
+while ! ping -c1 $vm_ip >/dev/null 2>&1; do i=$(( (i+1) %4 )); printf "\r${spin:$i:1}"; sleep .1; done
+#
 
 # download etcdctl and fleetctl
 #
@@ -169,21 +178,12 @@ fi
 chmod +x ~/coreos-xhyve-ui/bin/docker
 #
 
-
 # set fleetctl endpoint and install fleet units
 export FLEETCTL_ENDPOINT=http://$vm_ip:2379
 export FLEETCTL_DRIVER=etcd
 export FLEETCTL_STRICT_HOST_KEY_CHECKING=false
 echo "fleetctl list-machines:"
 fleetctl list-machines
-echo " "
-# install fleet units
-echo "Installing fleet units from '~/coreos-xhyve-ui/fleet' folder"
-cd ~/coreos-xhyve-ui/fleet
-~/coreos-xhyve-ui/bin/fleetctl submit *.service
-~/coreos-xhyve-ui/bin/fleetctl start *.service
-echo "Finished installing fleet units:"
-fleetctl list-units
 echo " "
 
 #

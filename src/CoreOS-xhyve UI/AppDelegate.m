@@ -79,7 +79,7 @@
     {
         // send a notification on to the screen
         NSUserNotification *notification = [[NSUserNotification alloc] init];
-        notification.title = @"coreos-xhyve VM will be up shortly";
+        notification.title = @"CoreOS-xhyve VM will be up shortly";
         notification.informativeText = @"and OS shell will be opened";
         [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:notification];
         
@@ -92,7 +92,7 @@
         NSAlert *alert = [[NSAlert alloc] init];
         [alert addButtonWithTitle:@"OK"];
         [alert addButtonWithTitle:@"Cancel"];
-        [alert setMessageText:@"coreos-xhyve VM was not set."];
+        [alert setMessageText:@"CoreOS-xhyve VM was not set."];
         [alert setInformativeText:@"Do you want to set it up?"];
         [alert setAlertStyle:NSWarningAlertStyle];
         
@@ -103,7 +103,7 @@
         else
         {
             // Cancel clicked
-            NSString *msg = [NSString stringWithFormat:@"%@ ", @" 'Initial setup of coreos-xhyve VM' at any time later one !!! "];
+            NSString *msg = [NSString stringWithFormat:@"%@ ", @" 'Initial setup of CoreOS-xhyve VM' at any time later one !!! "];
             [self displayWithMessage:@"You can set VM from menu 'Setup':" infoText:msg];
         }
     }
@@ -113,14 +113,12 @@
 - (IBAction)Stop:(id)sender {
     // send a notification on to the screen
     NSUserNotification *notification = [[NSUserNotification alloc] init];
-    notification.informativeText = @"coreos-xhyve VM will be stopped";
+    notification.informativeText = @"CoreOS-xhyve VM will be stopped";
     [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:notification];
     
     NSString *scriptName = [[NSString alloc] init];
     NSString *arguments = [[NSString alloc] init];
     [self runScript:scriptName = @"coreos-xhyve" arguments:arguments = @"sudo halt"];
-    
-    [self checkVMStatus];
 }
 
 - (IBAction)Restart:(id)sender {
@@ -132,8 +130,6 @@
     NSString *appName = [[NSString alloc] init];
     NSString *arguments = [[NSString alloc] init];
     [self runApp:appName = @"iTerm" arguments:arguments = [_resoucesPathFromApp stringByAppendingPathComponent:@"reload.command"]];
-    
-    [self checkVMStatus];
 }
 
 
@@ -172,7 +168,7 @@
 - (IBAction)changeReleaseChannel:(id)sender {
     // send a notification on to the screen
     NSUserNotification *notification = [[NSUserNotification alloc] init];
-    notification.informativeText = @"coreos-xhyve release channel change";
+    notification.informativeText = @"CoreOS-xhyve release channel change";
     [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:notification];
     
     NSString *appName = [[NSString alloc] init];
@@ -183,7 +179,7 @@
 - (IBAction)destroy:(id)sender {
     // send a notification on to the screen
     NSUserNotification *notification = [[NSUserNotification alloc] init];
-    notification.informativeText = @"coreos-xhyve VM will be destroyed";
+    notification.informativeText = @"CoreOS-xhyve VM will be destroyed";
     [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:notification];
     
     NSString *appName = [[NSString alloc] init];
@@ -201,7 +197,7 @@
     if([[NSFileManager defaultManager]
         fileExistsAtPath:home_folder isDirectory:&isDir] && isDir){
         NSString *msg = [NSString stringWithFormat:@"%@ %@ %@", @"Folder", home_folder, @"exists, please delete or rename that folder !!!"];
-        [self displayWithMessage:@"coreos-xhyve" infoText:msg];
+        [self displayWithMessage:@"CoreOS-xhyve" infoText:msg];
     }
     else
     {
