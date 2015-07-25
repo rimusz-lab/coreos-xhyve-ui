@@ -13,6 +13,15 @@ function pause(){
 read -p "$*"
 }
 
+# check VM status
+status=$(ps aux | grep "[c]oreos-xhyve-ui" | awk '{print $2}')
+if [ "$status" = "" ]; then
+    echo " "
+    echo "CoreOS VM is not running, please start VM !!!"
+    pause "Press any key to continue ..."
+    exit 1
+fi
+
 # Stop VM
 ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no core@$vm_ip sudo halt
 # wait till VM is stopped

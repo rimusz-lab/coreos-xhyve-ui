@@ -3,11 +3,27 @@
 # up.command
 #
 
+#
+
+
 # get App's Resources folder
 res_folder=$(cat ~/coreos-xhyve-ui/.env/resouces_path)
 
 # get VM IP
 vm_ip=$(cat ~/coreos-xhyve-ui/.env/ip_address)
+
+function pause(){
+    read -p "$*"
+}
+
+# check if VM is already running
+status=$(ps aux | grep "[c]oreos-xhyve-ui" | awk '{print $2}')
+if [[ "$status" -ne "" ]]; then
+    echo " "
+    pause "CoreOS VM is already running, press any key to continue ..."
+    exit 1
+fi
+
 
 echo " "
 # Check if set channel's images are present

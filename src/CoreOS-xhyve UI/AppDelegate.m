@@ -113,7 +113,8 @@
 - (IBAction)Stop:(id)sender {
     // send a notification on to the screen
     NSUserNotification *notification = [[NSUserNotification alloc] init];
-    notification.informativeText = @"CoreOS-xhyve VM will be stopped";
+    notification.title = @"CoreOS-xhyve UI";
+    notification.informativeText = @"VM will be stopped";
     [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:notification];
     
     NSString *scriptName = [[NSString alloc] init];
@@ -124,7 +125,8 @@
 - (IBAction)Restart:(id)sender {
     // send a notification on to the screen
     NSUserNotification *notification = [[NSUserNotification alloc] init];
-    notification.informativeText = @"CoreOS-xhyve VM will be reloaded";
+    notification.title = @"CoreOS-xhyve UI";
+    notification.informativeText = @"VM will be reloaded";
     [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:notification];
     
     NSString *appName = [[NSString alloc] init];
@@ -137,8 +139,8 @@
 - (IBAction)updates:(id)sender {
     // send a notification on to the screen
     NSUserNotification *notification = [[NSUserNotification alloc] init];
-    notification.title = @"OS X clients will be updated";
-//    notification.informativeText = @"and OS X clients will be updated";
+    notification.title = @"CoreOS-xhyve UI";
+    notification.informativeText = @"OS X clients will be updated";
     [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:notification];
     
     NSString *appName = [[NSString alloc] init];
@@ -151,8 +153,8 @@
 - (IBAction)fetchLatestISO:(id)sender {
     // send a notification on to the screen
     NSUserNotification *notification = [[NSUserNotification alloc] init];
-    notification.title = @"CoreOS ISO image";
-    notification.informativeText = @"will be updated";
+    notification.title = @"CoreOS-xhyve UI";
+    notification.informativeText = @"CoreOS ISO image will be updated";
     [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:notification];
     
     NSString *appName = [[NSString alloc] init];
@@ -168,7 +170,8 @@
 - (IBAction)changeReleaseChannel:(id)sender {
     // send a notification on to the screen
     NSUserNotification *notification = [[NSUserNotification alloc] init];
-    notification.informativeText = @"CoreOS-xhyve release channel change";
+    notification.title = @"CoreOS-xhyve UI";
+    notification.informativeText = @"CoreOS release channel change";
     [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:notification];
     
     NSString *appName = [[NSString alloc] init];
@@ -179,7 +182,8 @@
 - (IBAction)destroy:(id)sender {
     // send a notification on to the screen
     NSUserNotification *notification = [[NSUserNotification alloc] init];
-    notification.informativeText = @"CoreOS-xhyve VM will be destroyed";
+    notification.title = @"CoreOS-xhyve UI";
+    notification.informativeText = @"VM will be destroyed";
     [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:notification];
     
     NSString *appName = [[NSString alloc] init];
@@ -248,6 +252,7 @@
 - (IBAction)runShell:(id)sender {
     // send a notification on to the screen
     NSUserNotification *notification = [[NSUserNotification alloc] init];
+    notification.title = @"CoreOS-xhyve UI";
     notification.informativeText = @"OS X shell will be opened";
     [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:notification];
     
@@ -259,6 +264,7 @@
 - (IBAction)runSsh:(id)sender {
     // send a notification on to the screen
     NSUserNotification *notification = [[NSUserNotification alloc] init];
+    notification.title = @"CoreOS-xhyve UI";
     notification.informativeText = @"VM ssh shell will be opened";
     [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:notification];
     
@@ -269,6 +275,12 @@
 
 
 - (IBAction)fleetUI:(id)sender {
+    // send a notification on to the screen
+    NSUserNotification *notification = [[NSUserNotification alloc] init];
+    notification.title = @"CoreOS-xhyve UI";
+    notification.informativeText = @"Fleet UI dashboard will be opened";
+    
+    [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:notification];
     NSString *file_path = [NSHomeDirectory() stringByAppendingPathComponent:@"coreos-xhyve-ui/.env/ip_address"];
     // read IP from file
     NSString *vm_ip = [NSString stringWithContentsOfFile:file_path
@@ -279,6 +291,12 @@
 }
 
 - (IBAction)dockerUI:(id)sender {
+    // send a notification on to the screen
+    NSUserNotification *notification = [[NSUserNotification alloc] init];
+    notification.title = @"CoreOS-xhyve UI";
+    notification.informativeText = @"DockerUI dashboard wiil opened";
+    [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:notification];
+    
     NSString *file_path = [NSHomeDirectory() stringByAppendingPathComponent:@"coreos-xhyve-ui/.env/ip_address"];
     // read IP from file
     NSString *vm_ip = [NSString stringWithContentsOfFile:file_path

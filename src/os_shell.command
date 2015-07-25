@@ -10,6 +10,20 @@ res_folder=$(cat ~/coreos-xhyve-ui/.env/resouces_path)
 #vm_ip=$(cat ~/coreos-xhyve-ui/.env/ip_address)
 vm_ip=$(<~/coreos-xhyve-ui/.env/ip_address)
 
+function pause(){
+read -p "$*"
+}
+
+# check VM status
+status=$(ps aux | grep "[c]oreos-xhyve-ui" | awk '{print $2}')
+if [ "$status" = "" ]; then
+    echo " "
+    echo "CoreOS VM is not running, please start VM !!!"
+    pause "Press any key to continue ..."
+    exit 1
+fi
+
+
 # Set the environment variable for the docker daemon
 export DOCKER_HOST=tcp://$vm_ip:2375
 
