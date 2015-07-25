@@ -44,6 +44,14 @@ export PATH=${HOME}/coreos-xhyve-ui/bin:$PATH
 
 # set etcd endpoint
 export ETCDCTL_PEERS=http://$vm_ip:2379
+# wait till VM is ready
+echo " "
+echo "Waiting for VM to be ready..."
+spin='-\|/'
+i=0
+until curl -o /dev/null http://$vm_ip:2379 >/dev/null 2>&1; do i=$(( (i+1) %4 )); printf "\r${spin:$i:1}"; sleep .1; done
+#
+echo " "
 echo "etcdctl ls /:"
 etcdctl --no-sync ls /
 echo " "

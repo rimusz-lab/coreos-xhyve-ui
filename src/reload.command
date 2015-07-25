@@ -22,7 +22,20 @@ i=0
 until "${res_folder}"/check_vm_status.command | grep "VM is stopped" >/dev/null 2>&1; do i=$(( (i+1) %4 )); printf "\r${spin:$i:1}"; sleep .1; done
 #
 
-sleep 3
+echo " "
+# Check if set channel's images are present
+CHANNEL=$(cat ~/coreos-xhyve-ui/custom.conf | grep CHANNEL= | head -1 | cut -f2 -d"=")
+LATEST=$(ls -r ~/coreos-xhyve-ui/imgs/${CHANNEL}.*.vmlinuz | head -n 1 | sed -e "s,.*${CHANNEL}.,," -e "s,.coreos_.*,," )
+
+if [[ -z ${LATEST} ]]; then
+    echo "Couldn't find anything to load locally (${CHANNEL} channel)."
+    echo "Fetching lastest $CHANNEL channel ISO ..."
+    echo " "
+    cd ~/coreos-xhyve-ui/
+    "${res_folder}"/bin/coreos-xhyve-fetch -f custom.conf
+fi
+#
+
 echo " "
 echo "CoreOS VM will be started in a new Terminal.app window ..."
 # Start VM
@@ -43,7 +56,15 @@ export PATH=${HOME}/coreos-xhyve-ui/bin:$PATH
 export FLEETCTL_ENDPOINT=http://$vm_ip:2379
 export FLEETCTL_DRIVER=etcd
 export FLEETCTL_STRICT_HOST_KEY_CHECKING=false
+
+# wait till VM is ready
+echo "Waiting for VM to be ready..."
+spin='-\|/'
+i=0
+until curl -o /dev/null http://$vm_ip:2379 >/dev/null 2>&1; do i=$(( (i+1) %4 )); printf "\r${spin:$i:1}"; sleep .1; done
+
 #
+echo " "
 echo "fleetctl list-machines:"
 fleetctl list-machines
 echo ""

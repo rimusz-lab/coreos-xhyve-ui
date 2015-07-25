@@ -21,6 +21,7 @@ cd ~/coreos-xhyve-ui/cloud-init
 "${res_folder}"/bin/webserver start
 
 # Start VM
+echo "Waiting for VM to boot up... "
 cd ~/coreos-xhyve-ui
 "${res_folder}"/bin/coreos-xhyve-run -f custom.conf coreos-xhyve-ui
 

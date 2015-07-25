@@ -127,8 +127,9 @@ i=0
 until cat ~/coreos-xhyve-ui/.env/ip_address | grep 192.168.64 >/dev/null 2>&1; do i=$(( (i+1) %4 )); printf "\r${spin:$i:1}"; sleep .1; done
 vm_ip=$(cat ~/coreos-xhyve-ui/.env/ip_address)
 
-echo $vm_ip
-
+echo " "
+echo "VMs IP $vm_ip"
+echo "  "
 #
 spin='-\|/'
 i=0
