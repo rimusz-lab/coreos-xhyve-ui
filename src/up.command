@@ -1,10 +1,7 @@
-#!/bin/bash
+#!/bin/bash -x
 
 # up.command
 #
-
-#
-
 
 # get App's Resources folder
 res_folder=$(cat ~/coreos-xhyve-ui/.env/resouces_path)
@@ -24,7 +21,6 @@ if [[ "$status" -ne "" ]]; then
     exit 1
 fi
 
-
 echo " "
 # Check if set channel's images are present
 CHANNEL=$(cat ~/coreos-xhyve-ui/custom.conf | grep CHANNEL= | head -1 | cut -f2 -d"=")
@@ -38,14 +34,18 @@ if [[ -z ${LATEST} ]]; then
     "${res_folder}"/bin/coreos-xhyve-fetch -f custom.conf
 fi
 
-
 echo " "
-echo "CoreOS VM will be started in a new Terminal.app window ..."
+#echo "CoreOS VM will be started in a new Terminal.app window ..."
 # Start VM
-open -a Terminal.app "${res_folder}"/CoreOS-xhyve_UI_VM.command
+#open -a Terminal.app "${res_folder}"/CoreOS-xhyve_UI_VM.command
+rm -f ~/coreos-xhyve-ui/.env/.console
+echo "Starting VM ..."
+echo "${res_folder}"
+"${res_folder}"/bin/dtach -n ~/coreos-xhyve-ui/.env/.console -z "${res_folder}"/CoreOS-xhyve_UI_VM.command
 #
 
 # wait till VM is booted up
+echo "You can connect to VM console from menu 'core-01 console' "
 echo "Waiting for VM to boot up..."
 spin='-\|/'
 i=0

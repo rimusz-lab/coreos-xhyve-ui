@@ -112,13 +112,16 @@ echo " "
 #
 
 echo " "
-echo "CoreOS VM will be started in a new Terminal.app window ..."
-pause 'Press [Enter] key to continue...'
+#echo "CoreOS VM will be started in a new Terminal.app window ..."
+#pause 'Press [Enter] key to continue...'
 # Start VM
-open -a Terminal.app "${res_folder}"/CoreOS-xhyve_UI_VM.command
+#open -a Terminal.app "${res_folder}"/CoreOS-xhyve_UI_VM.command
+echo "Starting VM ..."
+"${res_folder}"/bin/dtach -n ~/coreos-xhyve-ui/.env/.coreos-xhyve.console -z
 #
 
 # wait till VM is booted up
+echo "You can connect to VM console from menu 'core-01 console' "
 echo "Waiting for VM to boot up..."
 sleep 5
 # get VM IP
@@ -128,7 +131,7 @@ until cat ~/coreos-xhyve-ui/.env/ip_address | grep 192.168.64 >/dev/null 2>&1; d
 vm_ip=$(cat ~/coreos-xhyve-ui/.env/ip_address)
 
 echo " "
-echo "VMs IP $vm_ip"
+echo "Assigned static VM's IP $vm_ip"
 echo "  "
 #
 spin='-\|/'

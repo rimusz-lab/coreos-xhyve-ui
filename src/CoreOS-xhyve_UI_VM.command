@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -x
 
 # Start VM
 #
@@ -23,11 +23,12 @@ cd ~/coreos-xhyve-ui/cloud-init
 # Start VM
 echo "Waiting for VM to boot up... "
 cd ~/coreos-xhyve-ui
+export XHYVE=~/coreos-xhyve-ui/bin/xhyve
 "${res_folder}"/bin/coreos-xhyve-run -f custom.conf coreos-xhyve-ui
 
 # Stop webserver
 "${res_folder}"/bin/webserver stop
 
 # Close terminal window
-osascript -e 'tell application "Terminal" to close (every window whose name contains "CoreOS-xhyve_UI_VM")' &
-exit
+#osascript -e 'tell application "Terminal" to close (every window whose name contains "CoreOS-xhyve_UI_VM")' &
+#exit

@@ -18,6 +18,7 @@
 		019662181B04C6EA005FA955 /* files in Resources */ = {isa = PBXBuildFile; fileRef = 019662171B04C6EA005FA955 /* files */; };
 		01AD94BF1A278C94009A400B /* fetch_latest_iso.command in Resources */ = {isa = PBXBuildFile; fileRef = 01AD94BE1A278C94009A400B /* fetch_latest_iso.command */; };
 		01B675D61B602FC2004349CC /* check_vm_status.command in Resources */ = {isa = PBXBuildFile; fileRef = 01B675D51B602FC2004349CC /* check_vm_status.command */; };
+		01C7F8F41B63B3B600CF2E26 /* console.command in Resources */ = {isa = PBXBuildFile; fileRef = 01C7F8F31B63B3B600CF2E26 /* console.command */; };
 		01CFC2DE1A2AA48300F251C2 /* change_release_channel.command in Resources */ = {isa = PBXBuildFile; fileRef = 01CFC2DB1A2AA48300F251C2 /* change_release_channel.command */; };
 		01CFC2DF1A2AA48300F251C2 /* destroy.command in Resources */ = {isa = PBXBuildFile; fileRef = 01CFC2DC1A2AA48300F251C2 /* destroy.command */; };
 		01CFC2E01A2AA48300F251C2 /* reload.command in Resources */ = {isa = PBXBuildFile; fileRef = 01CFC2DD1A2AA48300F251C2 /* reload.command */; };
@@ -47,6 +48,7 @@
 		019662171B04C6EA005FA955 /* files */ = {isa = PBXFileReference; lastKnownFileType = folder; path = files; sourceTree = SOURCE_ROOT; };
 		01AD94BE1A278C94009A400B /* fetch_latest_iso.command */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = fetch_latest_iso.command; sourceTree = "<group>"; };
 		01B675D51B602FC2004349CC /* check_vm_status.command */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = check_vm_status.command; sourceTree = "<group>"; };
+		01C7F8F31B63B3B600CF2E26 /* console.command */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = console.command; sourceTree = "<group>"; };
 		01CFC2DB1A2AA48300F251C2 /* change_release_channel.command */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = change_release_channel.command; sourceTree = "<group>"; };
 		01CFC2DC1A2AA48300F251C2 /* destroy.command */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = destroy.command; sourceTree = "<group>"; };
 		01CFC2DD1A2AA48300F251C2 /* reload.command */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = reload.command; sourceTree = "<group>"; };
@@ -170,6 +172,7 @@
 				01CFC2DB1A2AA48300F251C2 /* change_release_channel.command */,
 				01CFC2DC1A2AA48300F251C2 /* destroy.command */,
 				01741B64190DB81400BB1F91 /* up.command */,
+				01C7F8F31B63B3B600CF2E26 /* console.command */,
 				01CFC2DD1A2AA48300F251C2 /* reload.command */,
 				0111FADA1A7FA2A10021F258 /* os_shell.command */,
 				01AD94BE1A278C94009A400B /* fetch_latest_iso.command */,
@@ -257,6 +260,7 @@
 				0145318418FF209D007F9C95 /* coreos-xhyve.command in Resources */,
 				01CFC2DF1A2AA48300F251C2 /* destroy.command in Resources */,
 				01741B65190DB81400BB1F91 /* up.command in Resources */,
+				01C7F8F41B63B3B600CF2E26 /* console.command in Resources */,
 				01D1B9891B60F2AD0059B73E /* xhyve in Resources */,
 				01CFC2E01A2AA48300F251C2 /* reload.command in Resources */,
 				0111FADB1A7FA2A20021F258 /* os_shell.command in Resources */,
