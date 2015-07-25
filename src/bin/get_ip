@@ -1,0 +1,10 @@
+#!/bin/bash
+
+# get App's Resources folder
+res_folder=$(cat ~/coreos-xhyve-ui/.env/resouces_path)
+
+mac_address=$(cat ~/coreos-xhyve-ui/.env/mac_address)
+
+until "${res_folder}"/bin/mac2ip $mac_address | grep 192.168.64 >/dev/null 2>&1; do sleep .1; done
+
+"${res_folder}"/bin/mac2ip $mac_address | tr -d '\n\' > ~/coreos-xhyve-ui/.env/ip_address

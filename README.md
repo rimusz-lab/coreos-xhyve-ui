@@ -63,6 +63,7 @@ FLEETCTL_DRIVER=etcd
 Path to ~/coreos-xhyve-ui/bin where docker, etcdclt and fleetctl binaries and rkt shell 
 script are stored
 ```` 
+Also under 'Up" local webserver `python -m SimpleHTTPServer 18000` serves customized local user-data.
 
 * `OS Shell` opens OS Shell with the same enviroment preset as `Up`
 * `Updates/Check updates for fleet, etcdctl and docker` will update fleet, etcdctl and docker OS X clients to the same versions as CoreOS VM runs.
