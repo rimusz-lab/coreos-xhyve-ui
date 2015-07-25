@@ -14,16 +14,16 @@ How to install CoreOS-xhyve UI
 
 **WARNING**
  -----------
-  - xhyve is a very new project, expect bugs! You must be running OS X 10.10.3 Yosemite or later and 2010 or later Mac for this to work.
+  - [xhyve](https://github.com/mist64/xhyve) is a very new project, but is very cool! You must be running OS X 10.10.3 Yosemite or later and 2010 or later Mac for this to work.
   - if you use any version of VirtualBox prior to 5.0 then xhyve will crash your system either if VirtualBox is running or had been run previously after the last reboot (see xhyve's issues [#5](mist64/xhyve#5) and [#9](mist64/xhyve#9) for the full context). So, if you are unable to update VirtualBox to version 5, or later, and were using it in your current session please do restart your Mac before attempting to run xhyve.
 
 
 ####Required software:
-* Is only [iTerm 2](http://www.iterm2.com/#/section/downloads) 
-* As [xhyve](https://github.com/mist64/xhyve) is prebuilt in the App itself.
+* The only required software is [iTerm 2](http://www.iterm2.com/#/section/downloads) 
+* As [xhyve](https://github.com/mist64/xhyve) is integreted to the App.
 
 ####Download:
-* Download `CoreOS-xhyve UI latest.dmg` from the [Releases Page](https://github.com/rimusz/coreos-xhyve-ui/releases) and open it and drag the App e.g to your Desktop.
+* Download `CoreOS-xhyve UI latest.dmg` from the [Releases Page](https://github.com/rimusz/coreos-xhyve-ui/releases), open it and drag the App e.g to your Desktop.
 
 ###Install:
 * Start the `CoreOS-xhyve UI` and from menu `Setup` choose `Initial setup of CoreOS-xhyve UI` 
@@ -52,6 +52,7 @@ Just start `CoreOS-xhyve UI` application and you will find a small icon with the
 
 * There you can `Up`, `Halt`, `Reload` CoreOS VM
 * `SSH to core-01` (vagrant ssh) will open VM shell
+* `Attache to VM's console` will open console
 * Under `Up` OS Shell will be opened when VM boot finishes up and it will have such environment pre-set:
 
 ````
@@ -68,14 +69,13 @@ script are stored
 * `Updates/Fetch latest CoreOS ISO` will download the lasted CoreOS ISO file for the currently set release channel. 
 * [Fleet-UI](http://fleetui.com) dashboard will show running `fleet` units and etc
 * [DockerUI](https://github.com/crosbymichael/dockerui) will show all running containers and etc
-* Put your fleet units into `~/coreos-xhyve-ui/fleet` and will be automaticly deployed on each VM boot.
-* This App has much automation as possible to make easier to use CoreOS on OS X, you can change CoreOS release channel and reload VM and your downloaded docker images will remain stored in an extra persistant disk.
-* VM's console window will be openned in Terminal.app 
+* Put your fleet units into `~/coreos-xhyve-ui/fleet` and they will be automaticly deployed on each VM boot.
+* This App has as much automation as possible to make easier to use CoreOS on OS X, e.g. you can change CoreOS release channel and reload VM and your downloaded docker images will remain stored in an extra persistant disk. 
 
 To-dos
 -----------
 * Mount /Users folder via nfs to CoreOS VM
-* Nicely hide/unhide VM's console window
+
 
 Credits
 -----------
