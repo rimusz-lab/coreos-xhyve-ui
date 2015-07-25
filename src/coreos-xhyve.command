@@ -15,7 +15,7 @@ status=$(ps aux | grep "[c]oreos-xhyve-ui" | awk '{print $2}')
 if [ "$status" = "" ]; then
     echo " "
     echo "CoreOS VM is not running, please start VM !!!"
-    ###pause "Press any key to continue ..."
+    pause "Press any key to continue ..."
     exit 1
 fi
 

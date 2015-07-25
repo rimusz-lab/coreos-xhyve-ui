@@ -28,7 +28,3 @@ export XHYVE=~/coreos-xhyve-ui/bin/xhyve
 
 # Stop webserver
 "${res_folder}"/bin/webserver stop
-
-# Close terminal window
-#osascript -e 'tell application "Terminal" to close (every window whose name contains "CoreOS-xhyve_UI_VM")' &
-#exit

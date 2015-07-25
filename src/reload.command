@@ -14,7 +14,7 @@ read -p "$*"
 }
 
 # check VM status
-status=$(ps aux | grep "[c]oreos-xhyve-ui" | awk '{print $2}')
+status=$(ps aux | grep "[c]oreos-xhyve-ui/bin/xhyve" | awk '{print $2}')
 if [ "$status" = "" ]; then
     echo " "
     echo "CoreOS VM is not running, please start VM !!!"
@@ -46,12 +46,16 @@ fi
 #
 
 echo " "
-echo "CoreOS VM will be started in a new Terminal.app window ..."
 # Start VM
-open -a Terminal.app "${res_folder}"/CoreOS-xhyve_UI_VM.command
+rm -f ~/coreos-xhyve-ui/.env/.console
+echo "Starting VM ..."
+"${res_folder}"/bin/dtach -n ~/coreos-xhyve-ui/.env/.console -z "${res_folder}"/CoreOS-xhyve_UI_VM.command
+
 #
 
 # wait till VM is booted up
+echo "You can connect to VM console from menu 'Attach to VM's console' "
+echo "When you done with console just close it's window/tab with cmd+w "
 echo "Waiting for VM to boot up..."
 spin='-\|/'
 i=0

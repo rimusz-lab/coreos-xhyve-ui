@@ -1,4 +1,4 @@
-#!/bin/bash -x
+#!/bin/bash
 
 # up.command
 #
@@ -9,24 +9,28 @@ res_folder=$(cat ~/coreos-xhyve-ui/.env/resouces_path)
 # get VM IP
 vm_ip=$(cat ~/coreos-xhyve-ui/.env/ip_address)
 
+# copy xhyve to bin folder
+cp -f "${res_folder}"/bin/xhyve ~/coreos-xhyve-ui/bin
+chmod 755 ~/coreos-xhyve-ui/bin/xhyve
+
 function pause(){
     read -p "$*"
 }
 
 # check if VM is already running
-status=$(ps aux | grep "[c]oreos-xhyve-ui" | awk '{print $2}')
+status=$(ps aux | grep "[c]oreos-xhyve-ui/bin/xhyve" | awk '{print $2}')
 if [[ "$status" -ne "" ]]; then
     echo " "
     pause "CoreOS VM is already running, press any key to continue ..."
     exit 1
 fi
 
-echo " "
 # Check if set channel's images are present
 CHANNEL=$(cat ~/coreos-xhyve-ui/custom.conf | grep CHANNEL= | head -1 | cut -f2 -d"=")
 LATEST=$(ls -r ~/coreos-xhyve-ui/imgs/${CHANNEL}.*.vmlinuz | head -n 1 | sed -e "s,.*${CHANNEL}.,," -e "s,.coreos_.*,," )
 
 if [[ -z ${LATEST} ]]; then
+    echo " "
     echo "Couldn't find anything to load locally (${CHANNEL} channel)."
     echo "Fetching lastest $CHANNEL channel ISO ..."
     echo " "
@@ -35,17 +39,15 @@ if [[ -z ${LATEST} ]]; then
 fi
 
 echo " "
-#echo "CoreOS VM will be started in a new Terminal.app window ..."
 # Start VM
-#open -a Terminal.app "${res_folder}"/CoreOS-xhyve_UI_VM.command
 rm -f ~/coreos-xhyve-ui/.env/.console
 echo "Starting VM ..."
-echo "${res_folder}"
 "${res_folder}"/bin/dtach -n ~/coreos-xhyve-ui/.env/.console -z "${res_folder}"/CoreOS-xhyve_UI_VM.command
 #
 
 # wait till VM is booted up
-echo "You can connect to VM console from menu 'core-01 console' "
+echo "You can connect to VM console from menu 'Attach to VM's console' "
+echo "When you done with console just close it's window/tab with cmd+w "
 echo "Waiting for VM to boot up..."
 spin='-\|/'
 i=0

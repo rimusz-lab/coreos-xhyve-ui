@@ -14,7 +14,7 @@ read -p "$*"
 }
 
 # check VM status
-status=$(ps aux | grep "[c]oreos-xhyve-ui" | awk '{print $2}')
+status=$(ps aux | grep "[c]oreos-xhyve-ui/bin/xhyve" | awk '{print $2}')
 if [ "$status" = "" ]; then
     echo " "
     echo "CoreOS VM is not running, please start VM !!!"
@@ -25,10 +25,9 @@ fi
 
 # copy files to ~/coreos-xhyve-ui/bin
 cp -f "${res_folder}"/files/* ~/coreos-xhyve-ui/bin
+# copy xhyve to bin folder
+cp -f "${res_folder}"/bin/xhyve ~/coreos-xhyve-ui/bin
 chmod 755 ~/coreos-xhyve-ui/bin/*
-
-# copy fleet units
-cp -f "${res_folder}"/fleet/*.service ~/coreos-xhyve-ui/fleet
 
 # download latest versions of etcdctl and fleetctl
 #

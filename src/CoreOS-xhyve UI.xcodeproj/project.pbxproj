@@ -12,10 +12,11 @@
 		01741B57190DB7B800BB1F91 /* coreos-xhyve-install.command in Resources */ = {isa = PBXBuildFile; fileRef = 01741B56190DB7B800BB1F91 /* coreos-xhyve-install.command */; };
 		01741B63190DB80500BB1F91 /* first-init.command in Resources */ = {isa = PBXBuildFile; fileRef = 01741B62190DB80500BB1F91 /* first-init.command */; };
 		01741B65190DB81400BB1F91 /* up.command in Resources */ = {isa = PBXBuildFile; fileRef = 01741B64190DB81400BB1F91 /* up.command */; };
-		01741B67190DB82100BB1F91 /* update_osx_clients_units.command in Resources */ = {isa = PBXBuildFile; fileRef = 01741B66190DB82100BB1F91 /* update_osx_clients_units.command */; };
+		01741B67190DB82100BB1F91 /* update_osx_clients_files.command in Resources */ = {isa = PBXBuildFile; fileRef = 01741B66190DB82100BB1F91 /* update_osx_clients_files.command */; };
 		019662121B04C562005FA955 /* bin in Resources */ = {isa = PBXBuildFile; fileRef = 019662111B04C562005FA955 /* bin */; };
 		019662141B04C598005FA955 /* settings in Resources */ = {isa = PBXBuildFile; fileRef = 019662131B04C598005FA955 /* settings */; };
 		019662181B04C6EA005FA955 /* files in Resources */ = {isa = PBXBuildFile; fileRef = 019662171B04C6EA005FA955 /* files */; };
+		01993A4F1B63DD730096E2E1 /* halt.command in Resources */ = {isa = PBXBuildFile; fileRef = 01993A4E1B63DD730096E2E1 /* halt.command */; };
 		01AD94BF1A278C94009A400B /* fetch_latest_iso.command in Resources */ = {isa = PBXBuildFile; fileRef = 01AD94BE1A278C94009A400B /* fetch_latest_iso.command */; };
 		01B675D61B602FC2004349CC /* check_vm_status.command in Resources */ = {isa = PBXBuildFile; fileRef = 01B675D51B602FC2004349CC /* check_vm_status.command */; };
 		01C7F8F41B63B3B600CF2E26 /* console.command in Resources */ = {isa = PBXBuildFile; fileRef = 01C7F8F31B63B3B600CF2E26 /* console.command */; };
@@ -42,10 +43,11 @@
 		01741B56190DB7B800BB1F91 /* coreos-xhyve-install.command */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = "coreos-xhyve-install.command"; sourceTree = SOURCE_ROOT; };
 		01741B62190DB80500BB1F91 /* first-init.command */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = "first-init.command"; sourceTree = SOURCE_ROOT; };
 		01741B64190DB81400BB1F91 /* up.command */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = up.command; sourceTree = SOURCE_ROOT; };
-		01741B66190DB82100BB1F91 /* update_osx_clients_units.command */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = update_osx_clients_units.command; sourceTree = SOURCE_ROOT; };
+		01741B66190DB82100BB1F91 /* update_osx_clients_files.command */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = update_osx_clients_files.command; sourceTree = SOURCE_ROOT; };
 		019662111B04C562005FA955 /* bin */ = {isa = PBXFileReference; lastKnownFileType = folder; path = bin; sourceTree = SOURCE_ROOT; };
 		019662131B04C598005FA955 /* settings */ = {isa = PBXFileReference; lastKnownFileType = folder; path = settings; sourceTree = SOURCE_ROOT; };
 		019662171B04C6EA005FA955 /* files */ = {isa = PBXFileReference; lastKnownFileType = folder; path = files; sourceTree = SOURCE_ROOT; };
+		01993A4E1B63DD730096E2E1 /* halt.command */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = halt.command; sourceTree = "<group>"; };
 		01AD94BE1A278C94009A400B /* fetch_latest_iso.command */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = fetch_latest_iso.command; sourceTree = "<group>"; };
 		01B675D51B602FC2004349CC /* check_vm_status.command */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = check_vm_status.command; sourceTree = "<group>"; };
 		01C7F8F31B63B3B600CF2E26 /* console.command */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = console.command; sourceTree = "<group>"; };
@@ -169,14 +171,15 @@
 				01D1B9861B60D9A70059B73E /* CoreOS-xhyve_UI_VM.command */,
 				01B675D51B602FC2004349CC /* check_vm_status.command */,
 				0145318318FF209D007F9C95 /* coreos-xhyve.command */,
+				0111FADA1A7FA2A10021F258 /* os_shell.command */,
+				01C7F8F31B63B3B600CF2E26 /* console.command */,
 				01CFC2DB1A2AA48300F251C2 /* change_release_channel.command */,
 				01CFC2DC1A2AA48300F251C2 /* destroy.command */,
 				01741B64190DB81400BB1F91 /* up.command */,
-				01C7F8F31B63B3B600CF2E26 /* console.command */,
+				01993A4E1B63DD730096E2E1 /* halt.command */,
 				01CFC2DD1A2AA48300F251C2 /* reload.command */,
-				0111FADA1A7FA2A10021F258 /* os_shell.command */,
 				01AD94BE1A278C94009A400B /* fetch_latest_iso.command */,
-				01741B66190DB82100BB1F91 /* update_osx_clients_units.command */,
+				01741B66190DB82100BB1F91 /* update_osx_clients_files.command */,
 			);
 			name = Scripts;
 			sourceTree = "<group>";
@@ -262,6 +265,7 @@
 				01741B65190DB81400BB1F91 /* up.command in Resources */,
 				01C7F8F41B63B3B600CF2E26 /* console.command in Resources */,
 				01D1B9891B60F2AD0059B73E /* xhyve in Resources */,
+				01993A4F1B63DD730096E2E1 /* halt.command in Resources */,
 				01CFC2E01A2AA48300F251C2 /* reload.command in Resources */,
 				0111FADB1A7FA2A20021F258 /* os_shell.command in Resources */,
 				019662141B04C598005FA955 /* settings in Resources */,
@@ -274,7 +278,7 @@
 				01CFC2DE1A2AA48300F251C2 /* change_release_channel.command in Resources */,
 				01E2854E18A6C4E300BC630D /* Credits.rtf in Resources */,
 				01E2855418A6C4E300BC630D /* MainMenu.xib in Resources */,
-				01741B67190DB82100BB1F91 /* update_osx_clients_units.command in Resources */,
+				01741B67190DB82100BB1F91 /* update_osx_clients_files.command in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

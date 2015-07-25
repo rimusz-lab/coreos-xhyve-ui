@@ -119,7 +119,11 @@
     
     NSString *scriptName = [[NSString alloc] init];
     NSString *arguments = [[NSString alloc] init];
-    [self runScript:scriptName = @"coreos-xhyve" arguments:arguments = @"sudo halt"];
+    [self runScript:scriptName = @"halt" arguments:arguments = @""];
+    
+    notification.title = @"CoreOS-xhyve UI";
+    notification.informativeText = @"VM is stopped";
+    [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:notification];
 }
 
 - (IBAction)Restart:(id)sender {
@@ -145,8 +149,7 @@
     
     NSString *appName = [[NSString alloc] init];
     NSString *arguments = [[NSString alloc] init];
-    [self runApp:appName = @"iTerm" arguments:arguments = [_resoucesPathFromApp stringByAppendingPathComponent:@"update_osx_clients_units.command"]];
-    //     NSLog(@"Apps arguments: '%@'", [_resoucesPathFromApp stringByAppendingPathComponent:@"update.command"]);
+    [self runApp:appName = @"iTerm" arguments:arguments = [_resoucesPathFromApp stringByAppendingPathComponent:@"update_osx_clients_files.command"]];
 }
 
 
@@ -162,7 +165,6 @@
     [self runApp:appName = @"iTerm" arguments:arguments = [_resoucesPathFromApp stringByAppendingPathComponent:@"fetch_latest_iso.command"]];
     //     NSLog(@"Apps arguments: '%@'", [_resoucesPathFromApp stringByAppendingPathComponent:@"update.command"]);
 }
-
 // Updates menu
 
 
@@ -358,7 +360,7 @@
     
     NSString *string;
     string = [[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding];
-    //    NSLog (@"Returned:\n%@", string);
+        NSLog (@"Returned:\n%@", string);
     
     // send a notification on to the screen
     NSUserNotification *notification = [[NSUserNotification alloc] init];

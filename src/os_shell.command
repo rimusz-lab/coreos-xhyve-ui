@@ -15,7 +15,7 @@ read -p "$*"
 }
 
 # check VM status
-status=$(ps aux | grep "[c]oreos-xhyve-ui" | awk '{print $2}')
+status=$(ps aux | grep "[c]oreos-xhyve-ui/bin/xhyve" | awk '{print $2}')
 if [ "$status" = "" ]; then
     echo " "
     echo "CoreOS VM is not running, please start VM !!!"

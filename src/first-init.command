@@ -19,12 +19,12 @@ echo "Reading ssh key from $HOME/.ssh/id_rsa.pub  "
 file="$HOME/.ssh/id_rsa.pub"
 if [ -f "$file" ]
 then
-    echo " $file found, updating custom.conf..."
+    echo "$file found, updating custom.conf..."
     echo "SSHKEY='$(cat $HOME/.ssh/id_rsa.pub)'" >> ~/coreos-xhyve-ui/custom.conf
 else
-    echo " $file not found."
-    echo " please run 'ssh-keygen -t rsa' before you continue !!!"
-    pause ' Press [Enter] key to continue...'
+    echo "$file not found."
+    echo "please run 'ssh-keygen -t rsa' before you continue !!!"
+    pause 'Press [Enter] key to continue...'
     echo "SSHKEY="$(cat $HOME/.ssh/id_rsa.pub)"" >> ~/coreos-xhyve-ui/custom.conf
 fi
 #
@@ -65,7 +65,7 @@ do
     echo " 2)  Beta "
     echo " 3)  Stable "
     echo " "
-    echo " Select an option:"
+    echo -n "Select an option: "
 
     read RESPONSE
     XX=${RESPONSE:=Y}
@@ -75,6 +75,7 @@ do
         VALID_MAIN=1
         sed -i "" "s/CHANNEL=stable/CHANNEL=alpha/" ~/coreos-xhyve-ui/custom.conf
         sed -i "" "s/CHANNEL=beta/CHANNEL=alpha/" ~/coreos-xhyve-ui/custom.conf
+        CHANNEL=alpha
         LOOP=0
     fi
 
@@ -83,6 +84,7 @@ do
         VALID_MAIN=1
         sed -i "" "s/CHANNEL=alpha/CHANNEL=beta/" ~/coreos-xhyve-ui/custom.conf
         sed -i "" "s/CHANNEL=stable/CHANNEL=beta/" ~/coreos-xhyve-ui/custom.conf
+        CHANNEL=beta
         LOOP=0
     fi
 
@@ -91,6 +93,7 @@ do
         VALID_MAIN=1
         sed -i "" "s/CHANNEL=alpha/CHANNEL=stable/" ~/coreos-xhyve-ui/custom.conf
         sed -i "" "s/CHANNEL=beta/CHANNEL=stable/" ~/coreos-xhyve-ui/custom.conf
+        CHANNEL=stable
         LOOP=0
     fi
 
@@ -104,7 +107,7 @@ done
 
 # now let's fetch ISO file
 echo " "
-echo "Fetching lastest iso ..."
+echo "Fetching lastest CoreOS $CHANNEL channel ISO ..."
 echo " "
 cd ~/coreos-xhyve-ui/
 "${res_folder}"/bin/coreos-xhyve-fetch -f custom.conf
@@ -112,16 +115,14 @@ echo " "
 #
 
 echo " "
-#echo "CoreOS VM will be started in a new Terminal.app window ..."
-#pause 'Press [Enter] key to continue...'
 # Start VM
-#open -a Terminal.app "${res_folder}"/CoreOS-xhyve_UI_VM.command
 echo "Starting VM ..."
-"${res_folder}"/bin/dtach -n ~/coreos-xhyve-ui/.env/.coreos-xhyve.console -z
+"${res_folder}"/bin/dtach -n ~/coreos-xhyve-ui/.env/.console -z "${res_folder}"/CoreOS-xhyve_UI_VM.command
 #
 
 # wait till VM is booted up
-echo "You can connect to VM console from menu 'core-01 console' "
+echo "You can connect to VM console from menu 'Attach to VM's console' "
+echo "When you done with console just close it's window/tab with cmd+w "
 echo "Waiting for VM to boot up..."
 sleep 5
 # get VM IP
@@ -131,8 +132,6 @@ until cat ~/coreos-xhyve-ui/.env/ip_address | grep 192.168.64 >/dev/null 2>&1; d
 vm_ip=$(cat ~/coreos-xhyve-ui/.env/ip_address)
 
 echo " "
-echo "Assigned static VM's IP $vm_ip"
-echo "  "
 #
 spin='-\|/'
 i=0
@@ -191,10 +190,13 @@ fleetctl list-machines
 echo " "
 
 #
-echo "Installation has finished, CoreOS VM is up and running !!!"
-echo "Enjoy CoreOS-xhyve VM on your Mac !!!"
-echo ""
-echo "Run from menu 'OS Shell' to open a terninal window with rkt, docker, fleetctl and etcdctl pre-set !!!"
-echo ""
-pause 'Press [Enter] key to continue...'
 
+echo "Installation has finished, CoreOS VM is up and running !!!"
+echo " "
+echo "Assigned static VM's IP: $vm_ip"
+echo " "
+echo "Enjoy CoreOS-xhyve VM on your Mac !!!"
+echo " "
+echo "Run from menu 'OS Shell' to open a terninal window with rkt, docker, fleetctl and etcdctl pre-set !!!"
+echo " "
+pause 'Press [Enter] key to continue...'
