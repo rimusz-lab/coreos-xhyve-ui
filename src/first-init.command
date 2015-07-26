@@ -94,7 +94,9 @@ until cat ~/coreos-xhyve-ui/.env/ip_address | grep 192.168.64 >/dev/null 2>&1; d
 vm_ip=$(cat ~/coreos-xhyve-ui/.env/ip_address)
 #
 # waiting for VM's response to ping
-until ! ping -c1 $vm_ip >/dev/null 2>&1; do sleep 1; done;
+spin='-\|/'
+i=0
+while ! ping -c1 $vm_ip >/dev/null 2>&1; do i=$(( (i+1) %4 )); printf "\r${spin:$i:1}"; sleep .1; done
 #
 
 echo " "

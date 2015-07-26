@@ -42,7 +42,7 @@ echo "When you done with console just close it's window/tab with cmd+w "
 echo "Waiting for VM to boot up..."
 spin='-\|/'
 i=0
-until ! ping -c1 $vm_ip >/dev/null 2>&1; do i=$(( (i+1) %4 )); printf "\r${spin:$i:1}"; sleep .1; done
+while ! ping -c1 $vm_ip >/dev/null 2>&1; do i=$(( (i+1) %4 )); printf "\r${spin:$i:1}"; sleep .1; done
 echo " "
 
 # path to the bin folder where we store our binary files

@@ -17,5 +17,4 @@
 @property(strong) NSWindowController *myWindowController;
 
 @property(strong) NSString *resoucesPathFromApp;
-
 @end

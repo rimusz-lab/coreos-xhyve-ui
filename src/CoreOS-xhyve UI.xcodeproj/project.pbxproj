@@ -223,7 +223,7 @@
 		01E2853218A6C4E300BC630D /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0510;
+				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "Rimantas Mocevicius";
 				TargetAttributes = {
 					01E2853918A6C4E300BC630D = {
@@ -346,6 +346,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
@@ -408,6 +409,7 @@
 				GCC_PREFIX_HEADER = "CoreOS-xhyve UI/CoreOS-xhyve UI-Prefix.pch";
 				INFOPLIST_FILE = "CoreOS-xhyve UI/CoreOS-xhyve UI-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				PRODUCT_BUNDLE_IDENTIFIER = "net.linxos.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "CoreOS-xhyve UI";
 				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
@@ -424,6 +426,7 @@
 				GCC_PREFIX_HEADER = "CoreOS-xhyve UI/CoreOS-xhyve UI-Prefix.pch";
 				INFOPLIST_FILE = "CoreOS-xhyve UI/CoreOS-xhyve UI-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				PRODUCT_BUNDLE_IDENTIFIER = "net.linxos.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "CoreOS-xhyve UI";
 				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
