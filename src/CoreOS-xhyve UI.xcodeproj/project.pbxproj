@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0106B34A1B65277F001709E0 /* functions.sh in Resources */ = {isa = PBXBuildFile; fileRef = 0106B3491B65277F001709E0 /* functions.sh */; };
 		0111FADB1A7FA2A20021F258 /* os_shell.command in Resources */ = {isa = PBXBuildFile; fileRef = 0111FADA1A7FA2A10021F258 /* os_shell.command */; };
 		0145318418FF209D007F9C95 /* coreos-xhyve.command in Resources */ = {isa = PBXBuildFile; fileRef = 0145318318FF209D007F9C95 /* coreos-xhyve.command */; };
 		01741B57190DB7B800BB1F91 /* coreos-xhyve-install.command in Resources */ = {isa = PBXBuildFile; fileRef = 01741B56190DB7B800BB1F91 /* coreos-xhyve-install.command */; };
@@ -37,6 +38,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0106B3491B65277F001709E0 /* functions.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = functions.sh; sourceTree = "<group>"; };
+		0106B34C1B656E70001709E0 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/MainMenu.strings; sourceTree = "<group>"; };
 		0111FADA1A7FA2A10021F258 /* os_shell.command */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = os_shell.command; sourceTree = "<group>"; };
 		0133608F18A70E0C0024B1CB /* CoreOS-xhyve UI.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "CoreOS-xhyve UI.entitlements"; sourceTree = "<group>"; };
 		0145318318FF209D007F9C95 /* coreos-xhyve.command */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = "coreos-xhyve.command"; sourceTree = "<group>"; };
@@ -169,13 +172,14 @@
 				01D1B9881B60F2AD0059B73E /* xhyve */,
 				019662111B04C562005FA955 /* bin */,
 				01D1B9861B60D9A70059B73E /* CoreOS-xhyve_UI_VM.command */,
+				0106B3491B65277F001709E0 /* functions.sh */,
 				01B675D51B602FC2004349CC /* check_vm_status.command */,
 				0145318318FF209D007F9C95 /* coreos-xhyve.command */,
-				0111FADA1A7FA2A10021F258 /* os_shell.command */,
-				01C7F8F31B63B3B600CF2E26 /* console.command */,
 				01CFC2DB1A2AA48300F251C2 /* change_release_channel.command */,
 				01CFC2DC1A2AA48300F251C2 /* destroy.command */,
 				01741B64190DB81400BB1F91 /* up.command */,
+				0111FADA1A7FA2A10021F258 /* os_shell.command */,
+				01C7F8F31B63B3B600CF2E26 /* console.command */,
 				01993A4E1B63DD730096E2E1 /* halt.command */,
 				01CFC2DD1A2AA48300F251C2 /* reload.command */,
 				01AD94BE1A278C94009A400B /* fetch_latest_iso.command */,
@@ -274,6 +278,7 @@
 				019662181B04C6EA005FA955 /* files in Resources */,
 				01741B63190DB80500BB1F91 /* first-init.command in Resources */,
 				01B675D61B602FC2004349CC /* check_vm_status.command in Resources */,
+				0106B34A1B65277F001709E0 /* functions.sh in Resources */,
 				01741B57190DB7B800BB1F91 /* coreos-xhyve-install.command in Resources */,
 				01CFC2DE1A2AA48300F251C2 /* change_release_channel.command in Resources */,
 				01E2854E18A6C4E300BC630D /* Credits.rtf in Resources */,
@@ -317,6 +322,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				01E2855318A6C4E300BC630D /* Base */,
+				0106B34C1B656E70001709E0 /* en */,
 			);
 			name = MainMenu.xib;
 			sourceTree = "<group>";

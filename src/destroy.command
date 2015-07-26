@@ -3,17 +3,15 @@
 # destroy extra disk and create new
 #
 
+#
+DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+source "${DIR}"/functions.sh
 
 # get App's Resources folder
 res_folder=$(cat ~/coreos-xhyve-ui/.env/resouces_path)
 
 # get VM IP
 vm_ip=$(<~/coreos-xhyve-ui/.env/ip_address)
-
-#
-function pause(){
-    read -p "$*"
-}
 
 LOOP=1
 while [ $LOOP -gt 0 ]

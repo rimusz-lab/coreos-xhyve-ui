@@ -2,6 +2,9 @@
 
 #  coreos-xhyve.command
 # run commands on VM via ssh
+#
+DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+source "${DIR}"/functions.sh
 
 # get App's Resources folder
 res_folder=$(cat ~/coreos-xhyve-ui/.env/resouces_path)
@@ -10,18 +13,8 @@ res_folder=$(cat ~/coreos-xhyve-ui/.env/resouces_path)
 #vm_ip=$( ~/coreos-xhyve-ui/mac2ip.sh $(cat ~/coreos-xhyve-ui/.env/mac_address))
 vm_ip=$(cat ~/coreos-xhyve-ui/.env/ip_address)
 
-function pause(){
-    read -p "$*"
-}
-
-# check VM status
-status=$(ps aux | grep "[c]oreos-xhyve-ui" | awk '{print $2}')
-if [ "$status" = "" ]; then
-    echo " "
-    echo "CoreOS VM is not running, please start VM !!!"
-    pause "Press any key to continue ..."
-    exit 1
-fi
+# check VM status and exit if not running
+check_vm_status
 
 # pass some arguments via $1 $2 ...
 ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no core@$vm_ip $1 $2 $3 $4 $5 $6 $7 $8 $9 ${10} ${11} ${12}

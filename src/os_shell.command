@@ -2,6 +2,8 @@
 
 #  Pre-set OS shell
 #
+DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+source "${DIR}"/functions.sh
 
 # get App's Resources folder
 res_folder=$(cat ~/coreos-xhyve-ui/.env/resouces_path)
@@ -10,19 +12,8 @@ res_folder=$(cat ~/coreos-xhyve-ui/.env/resouces_path)
 #vm_ip=$(cat ~/coreos-xhyve-ui/.env/ip_address)
 vm_ip=$(<~/coreos-xhyve-ui/.env/ip_address)
 
-function pause(){
-read -p "$*"
-}
-
-# check VM status
-status=$(ps aux | grep "[c]oreos-xhyve-ui/bin/xhyve" | awk '{print $2}')
-if [ "$status" = "" ]; then
-    echo " "
-    echo "CoreOS VM is not running, please start VM !!!"
-    pause "Press any key to continue ..."
-    exit 1
-fi
-
+# check VM status and exit if not running
+check_vm_status
 
 # Set the environment variable for the docker daemon
 export DOCKER_HOST=tcp://$vm_ip:2375

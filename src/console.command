@@ -2,22 +2,14 @@
 
 # console.command
 #
+DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+source "${DIR}"/functions.sh
 
 # get App's Resources folder
 res_folder=$(cat ~/coreos-xhyve-ui/.env/resouces_path)
 
-function pause(){
-    read -p "$*"
-}
-
-# check VM status
-status=$(ps aux | grep "[c]oreos-xhyve-ui/bin/xhyve" | awk '{print $2}')
-if [ "$status" = "" ]; then
-    echo " "
-    echo "CoreOS VM is not running, please start VM !!!"
-    pause "Press any key to continue ..."
-    exit 1
-fi
+# check VM status and exit if not running
+check_vm_status
 
 # Attach to VM's console
 echo "Attaching to VM's console ..."

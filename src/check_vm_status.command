@@ -9,7 +9,7 @@ res_folder=$(cat ~/coreos-xhyve-ui/.env/resouces_path)
 status=$(ps aux | grep "[c]oreos-xhyve-ui/bin/xhyve" | awk '{print $2}')
 
 if [ "$status" = "" ]; then
-    echo "VM is stopped"
+    echo -n "VM is stopped"
 else
-    echo "VM is running"
+    echo -n "VM is running"
 fi

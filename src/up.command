@@ -3,6 +3,10 @@
 # up.command
 #
 
+#
+DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+source "${DIR}"/functions.sh
+
 # get App's Resources folder
 res_folder=$(cat ~/coreos-xhyve-ui/.env/resouces_path)
 
@@ -13,41 +17,27 @@ vm_ip=$(cat ~/coreos-xhyve-ui/.env/ip_address)
 cp -f "${res_folder}"/bin/xhyve ~/coreos-xhyve-ui/bin
 chmod 755 ~/coreos-xhyve-ui/bin/xhyve
 
-function pause(){
-    read -p "$*"
-}
-
 # check if VM is already running
-status=$(ps aux | grep "[c]oreos-xhyve-ui/bin/xhyve" | awk '{print $2}')
-if [[ "$status" -ne "" ]]; then
-    echo " "
-    pause "CoreOS VM is already running, press any key to continue ..."
-    exit 1
-fi
+#status=$(ps aux | grep "[c]oreos-xhyve-ui/bin/xhyve" | awk '{print $2}')
+#if [[ $status = *[!\ ]* ]]; then
+#    echo " "
+#    pause "CoreOS VM is already running, press any key to continue ..."
+#    exit 1
+#fi
 
 # Check if set channel's images are present
-CHANNEL=$(cat ~/coreos-xhyve-ui/custom.conf | grep CHANNEL= | head -1 | cut -f2 -d"=")
-LATEST=$(ls -r ~/coreos-xhyve-ui/imgs/${CHANNEL}.*.vmlinuz | head -n 1 | sed -e "s,.*${CHANNEL}.,," -e "s,.coreos_.*,," )
+check_for_images
 
-if [[ -z ${LATEST} ]]; then
-    echo " "
-    echo "Couldn't find anything to load locally (${CHANNEL} channel)."
-    echo "Fetching lastest $CHANNEL channel ISO ..."
-    echo " "
-    cd ~/coreos-xhyve-ui/
-    "${res_folder}"/bin/coreos-xhyve-fetch -f custom.conf
-fi
-
-echo " "
 # Start VM
 rm -f ~/coreos-xhyve-ui/.env/.console
+echo " "
 echo "Starting VM ..."
 "${res_folder}"/bin/dtach -n ~/coreos-xhyve-ui/.env/.console -z "${res_folder}"/CoreOS-xhyve_UI_VM.command
 #
 
 # wait till VM is booted up
 echo "You can connect to VM console from menu 'Attach to VM's console' "
-echo "When you done with console just close it's window/tab with cmd+w "
+echo "When you done with console just close it's window/tab with CMD+W "
 echo "Waiting for VM to boot up..."
 spin='-\|/'
 i=0
@@ -58,7 +48,6 @@ export DOCKER_HOST=tcp://$vm_ip:2375
 
 # path to the bin folder where we store our binary files
 export PATH=${HOME}/coreos-xhyve-ui/bin:$PATH
-
 
 # set etcd endpoint
 export ETCDCTL_PEERS=http://$vm_ip:2379
@@ -85,17 +74,8 @@ fleetctl list-machines
 echo " "
 
 # deploy fleet units from ~/coreos-xhyve-ui/fleet
-if [ "$(ls ~/coreos-xhyve-ui/fleet | grep -o -m 1 service)" = "service" ]
-then
-    cd ~/coreos-xhyve-ui/fleet
-    echo " "
-    echo "Starting all fleet units in ~/coreos-xhyve-ui/fleet:"
-    fleetctl start *.service
-    echo " "
-    echo "fleetctl list-units:"
-    fleetctl list-units
-    echo " "
-fi
+deploy_fleet_units
+#
 
 cd ~/
 

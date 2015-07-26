@@ -14,7 +14,7 @@ How to install CoreOS-xhyve UI
 
 **WARNING**
  -----------
-  - [xhyve](https://github.com/mist64/xhyve) is a very new project, but is very cool! You must be running OS X 10.10.3 Yosemite or later and 2010 or later Mac for this to work.
+  - [xhyve](https://github.com/mist64/xhyve) is a very new project, but is very cool already! You must be running OS X 10.10.3 Yosemite or later and 2010 or later Mac for this to work.
   - if you use any version of VirtualBox prior to 5.0 then xhyve will crash your system either if VirtualBox is running or had been run previously after the last reboot (see xhyve's issues [#5](mist64/xhyve#5) and [#9](mist64/xhyve#9) for the full context). So, if you are unable to update VirtualBox to version 5, or later, and were using it in your current session please do restart your Mac before attempting to run xhyve.
 
 
@@ -52,7 +52,7 @@ Just start `CoreOS-xhyve UI` application and you will find a small icon with the
 
 * There you can `Up`, `Halt`, `Reload` CoreOS VM
 * `SSH to core-01` (vagrant ssh) will open VM shell
-* `Attache to VM's console` will open console
+* `Attach to VM's console` will open console
 * Under `Up` OS Shell will be opened when VM boot finishes up and it will have such environment pre-set:
 
 ````
@@ -60,13 +60,13 @@ DOCKER_HOST=tcp://assigned_static_ip:2375
 ETCDCTL_PEERS=http://assigned_static_ip:2379
 FLEETCTL_ENDPOINT=http://assigned_static_ip:2379
 FLEETCTL_DRIVER=etcd
-Path to ~/coreos-xhyve-ui/bin where docker, etcdclt and fleetctl binaries and rkt shell 
-script are stored
+Path to ~/coreos-xhyve-ui/bin where docker and fleetctl binaries, rkt and etcdclt shell 
+scripts are stored
 ```` 
 Also under 'Up" local webserver `python -m SimpleHTTPServer 18000` serves customized local user-data.
 
 * `OS Shell` opens OS Shell with the same enviroment preset as `Up`
-* `Updates/Check updates for fleet, etcdctl and docker` will update fleet, etcdctl and docker OS X clients to the same versions as CoreOS VM runs.
+* `Updates/Check updates for OS X fleetctl and docker clients` will update fleet and docker OS X clients to the same versions as CoreOS VM runs.
 * `Updates/Fetch latest CoreOS ISO` will download the lasted CoreOS ISO file for the currently set release channel. 
 * [Fleet-UI](http://fleetui.com) dashboard will show running `fleet` units and etc
 * [DockerUI](https://github.com/crosbymichael/dockerui) will show all running containers and etc
@@ -80,7 +80,8 @@ To-dos
 
 Credits
 -----------
-* To CoreOS team for making [coreos-xhyve](https://github.com/coreos/coreos-xhyve)
+* To [Michael Steil](https://github.com/mist64) for the awesome [xhyve](https://github.com/mist64/xhyve) lightweight OS X virtualization solution
+* To CoreOS team for [coreos-xhyve](https://github.com/coreos/coreos-xhyve) version
 * To [Antonio Meireles](https://github.com/AntonioMeireles) for his awesome tweaks spree to improve coreos-xhyve
 
 Other links for Vagrant based VMs

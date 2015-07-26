@@ -44,7 +44,7 @@
                                                 contents:app_version
                                               attributes:nil];
         
-        [self checkVMStatus];
+        [self showVMStatus];
     }
     else
     {
@@ -70,86 +70,147 @@
 
 
 - (IBAction)Start:(id)sender {
+    int vm_status=[self checkVMStatus];
+    //NSLog (@"VM status:\n%d", vm_status);
     
-    NSString *home_folder = [NSHomeDirectory() stringByAppendingPathComponent:@"coreos-xhyve-ui"];
+    if (vm_status == 0) {
+        NSLog (@"VM is Off");
+        ////
+        NSString *home_folder = [NSHomeDirectory() stringByAppendingPathComponent:@"coreos-xhyve-ui"];
     
-    BOOL isDir;
-    if([[NSFileManager defaultManager]
-        fileExistsAtPath:home_folder isDirectory:&isDir] && isDir)
-    {
-        // send a notification on to the screen
-        NSUserNotification *notification = [[NSUserNotification alloc] init];
-        notification.title = @"CoreOS-xhyve VM will be up shortly";
-        notification.informativeText = @"and OS shell will be opened";
-        [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:notification];
+        BOOL isDir;
+        if([[NSFileManager defaultManager]
+            fileExistsAtPath:home_folder isDirectory:&isDir] && isDir)
+        {
+            // send a notification on to the screen
+            NSUserNotification *notification = [[NSUserNotification alloc] init];
+            notification.title = @"CoreOS-xhyve VM will be up shortly";
+            notification.informativeText = @"and OS shell will be opened";
+            [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:notification];
         
-        NSString *appName = [[NSString alloc] init];
-        NSString *arguments = [[NSString alloc] init];
-        [self runApp:appName = @"iTerm" arguments:arguments = [_resoucesPathFromApp stringByAppendingPathComponent:@"up.command"]];
-    }
-    else
-    {
-        NSAlert *alert = [[NSAlert alloc] init];
-        [alert addButtonWithTitle:@"OK"];
-        [alert addButtonWithTitle:@"Cancel"];
-        [alert setMessageText:@"CoreOS-xhyve VM was not set."];
-        [alert setInformativeText:@"Do you want to set it up?"];
-        [alert setAlertStyle:NSWarningAlertStyle];
-        
-        if ([alert runModal] == NSAlertFirstButtonReturn) {
-            // OK clicked
-            [self initialInstall:self];
+            NSString *appName = [[NSString alloc] init];
+            NSString *arguments = [[NSString alloc] init];
+            [self runApp:appName = @"iTerm" arguments:arguments = [_resoucesPathFromApp stringByAppendingPathComponent:@"up.command"]];
         }
         else
         {
-            // Cancel clicked
-            NSString *msg = [NSString stringWithFormat:@"%@ ", @" 'Initial setup of CoreOS-xhyve VM' at any time later one !!! "];
-            [self displayWithMessage:@"You can set VM from menu 'Setup':" infoText:msg];
+            NSAlert *alert = [[NSAlert alloc] init];
+            [alert addButtonWithTitle:@"OK"];
+            [alert addButtonWithTitle:@"Cancel"];
+            [alert setMessageText:@"CoreOS-xhyve VM was not set."];
+            [alert setInformativeText:@"Do you want to set it up?"];
+            [alert setAlertStyle:NSWarningAlertStyle];
+        
+            if ([alert runModal] == NSAlertFirstButtonReturn) {
+                // OK clicked
+                [self initialInstall:self];
+            }
+            else
+            {
+                // Cancel clicked
+                NSString *msg = [NSString stringWithFormat:@"%@ ", @" 'Initial setup of CoreOS-xhyve VM' at any time later one !!! "];
+                [self displayWithMessage:@"You can set VM from menu 'Setup':" infoText:msg];
+            }
         }
     }
+    else
+    {
+        NSLog (@"VM is On");
+        // send a notification on to the screen
+        NSUserNotification *notification = [[NSUserNotification alloc] init];
+        notification.title = @"CoreOS-xhyve UI";
+        notification.informativeText = @"VM is already running !!!";
+        [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:notification];
+    }
+
 }
 
 
 - (IBAction)Stop:(id)sender {
-    // send a notification on to the screen
-    NSUserNotification *notification = [[NSUserNotification alloc] init];
-    notification.title = @"CoreOS-xhyve UI";
-    notification.informativeText = @"VM will be stopped";
-    [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:notification];
+    int vm_status=[self checkVMStatus];
+    //NSLog (@"VM status:\n%d", vm_status);
     
-    NSString *scriptName = [[NSString alloc] init];
-    NSString *arguments = [[NSString alloc] init];
-    [self runScript:scriptName = @"halt" arguments:arguments = @""];
+    if (vm_status == 0) {
+        NSLog (@"VM is Off");
+        // send a notification on to the screen
+        NSUserNotification *notification = [[NSUserNotification alloc] init];
+        notification.title = @"CoreOS-xhyve UI";
+        notification.informativeText = @"VM is already Off !!!";
+        [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:notification];
+    }
+    else
+    {
+        NSLog (@"VM is On");
+        // send a notification on to the screen
+        NSUserNotification *notification = [[NSUserNotification alloc] init];
+        notification.title = @"CoreOS-xhyve UI";
+        notification.informativeText = @"VM will be stopped";
+        [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:notification];
     
-    notification.title = @"CoreOS-xhyve UI";
-    notification.informativeText = @"VM is stopped";
-    [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:notification];
+        NSString *scriptName = [[NSString alloc] init];
+        NSString *arguments = [[NSString alloc] init];
+        [self runScript:scriptName = @"halt" arguments:arguments = @""];
+    
+        notification.title = @"CoreOS-xhyve UI";
+        notification.informativeText = @"VM is stopping !!!";
+        [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:notification];
+    }
 }
 
 - (IBAction)Restart:(id)sender {
-    // send a notification on to the screen
-    NSUserNotification *notification = [[NSUserNotification alloc] init];
-    notification.title = @"CoreOS-xhyve UI";
-    notification.informativeText = @"VM will be reloaded";
-    [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:notification];
+    int vm_status=[self checkVMStatus];
+    //NSLog (@"VM status:\n%d", vm_status);
     
-    NSString *appName = [[NSString alloc] init];
-    NSString *arguments = [[NSString alloc] init];
-    [self runApp:appName = @"iTerm" arguments:arguments = [_resoucesPathFromApp stringByAppendingPathComponent:@"reload.command"]];
+    if (vm_status == 0) {
+        NSLog (@"VM is Off");
+        // send a notification on to the screen
+        NSUserNotification *notification = [[NSUserNotification alloc] init];
+        notification.title = @"CoreOS-xhyve UI";
+        notification.informativeText = @"VM is Off !!!";
+        [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:notification];
+    }
+    else
+    {
+        NSLog (@"VM is On");
+        // send a notification on to the screen
+        NSUserNotification *notification = [[NSUserNotification alloc] init];
+        notification.title = @"CoreOS-xhyve UI";
+        notification.informativeText = @"VM will be reloaded";
+        [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:notification];
+    
+        NSString *appName = [[NSString alloc] init];
+        NSString *arguments = [[NSString alloc] init];
+        [self runApp:appName = @"iTerm" arguments:arguments = [_resoucesPathFromApp stringByAppendingPathComponent:@"reload.command"]];
+    }
 }
 
 
 // Updates menu
 - (IBAction)updates:(id)sender {
-    // send a notification on to the screen
-    NSUserNotification *notification = [[NSUserNotification alloc] init];
-    notification.title = @"CoreOS-xhyve UI";
-    notification.informativeText = @"OS X clients will be updated";
-    [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:notification];
+    int vm_status=[self checkVMStatus];
+    //NSLog (@"VM status:\n%d", vm_status);
     
-    NSString *appName = [[NSString alloc] init];
-    NSString *arguments = [[NSString alloc] init];
-    [self runApp:appName = @"iTerm" arguments:arguments = [_resoucesPathFromApp stringByAppendingPathComponent:@"update_osx_clients_files.command"]];
+    if (vm_status == 0) {
+        NSLog (@"VM is Off");
+        // send a notification on to the screen
+        NSUserNotification *notification = [[NSUserNotification alloc] init];
+        notification.title = @"CoreOS-xhyve UI";
+        notification.informativeText = @"VM is Off !!!";
+        [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:notification];
+    }
+    else
+    {
+        NSLog (@"VM is On");
+        // send a notification on to the screen
+        NSUserNotification *notification = [[NSUserNotification alloc] init];
+        notification.title = @"CoreOS-xhyve UI";
+        notification.informativeText = @"OS X clients will be updated";
+        [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:notification];
+    
+        NSString *appName = [[NSString alloc] init];
+        NSString *arguments = [[NSString alloc] init];
+        [self runApp:appName = @"iTerm" arguments:arguments = [_resoucesPathFromApp stringByAppendingPathComponent:@"update_osx_clients_files.command"]];
+    }
 }
 
 
@@ -192,7 +253,7 @@
     NSString *arguments = [[NSString alloc] init];
     [self runApp:appName = @"iTerm" arguments:arguments = [_resoucesPathFromApp stringByAppendingPathComponent:@"destroy.command"]];
     
-    [self checkVMStatus];
+    [self showVMStatus];
 }
 
 - (IBAction)initialInstall:(id)sender
@@ -339,7 +400,7 @@
 }
 
 
-- (void)checkVMStatus {
+- (int)checkVMStatus {
     // check vm status and return the shell script output
     NSTask *task = [[NSTask alloc] init];
     task.launchPath = [NSString stringWithFormat:@"%@", [[NSBundle mainBundle] pathForResource:@"check_vm_status" ofType:@"command"]];
@@ -360,7 +421,38 @@
     
     NSString *string;
     string = [[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding];
-        NSLog (@"Returned:\n%@", string);
+    NSLog (@"Show VM status:\n%@", string);
+    
+    if ( [string  isEqual: @"VM is stopped"] ) {
+        return 0;
+    } else {
+        return 1;
+    }
+}
+
+
+- (void)showVMStatus {
+    // check vm status and return the shell script output
+    NSTask *task = [[NSTask alloc] init];
+    task.launchPath = [NSString stringWithFormat:@"%@", [[NSBundle mainBundle] pathForResource:@"check_vm_status" ofType:@"command"]];
+    //    task.arguments  = @[@"status"];
+    
+    NSPipe *pipe;
+    pipe = [NSPipe pipe];
+    [task setStandardOutput: pipe];
+    
+    NSFileHandle *file;
+    file = [pipe fileHandleForReading];
+    
+    [task launch];
+    [task waitUntilExit];
+    
+    NSData *data;
+    data = [file readDataToEndOfFile];
+    
+    NSString *string;
+    string = [[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding];
+    //NSLog (@"Returned:\n%@", string);
     
     // send a notification on to the screen
     NSUserNotification *notification = [[NSUserNotification alloc] init];

@@ -2,6 +2,8 @@
 
 #  Reload VM
 #
+DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+source "${DIR}"/functions.sh
 
 # get App's Resources folder
 res_folder=$(cat ~/coreos-xhyve-ui/.env/resouces_path)
@@ -9,18 +11,8 @@ res_folder=$(cat ~/coreos-xhyve-ui/.env/resouces_path)
 # get VM IP
 vm_ip=$(<~/coreos-xhyve-ui/.env/ip_address)
 
-function pause(){
-read -p "$*"
-}
-
-# check VM status
-status=$(ps aux | grep "[c]oreos-xhyve-ui/bin/xhyve" | awk '{print $2}')
-if [ "$status" = "" ]; then
-    echo " "
-    echo "CoreOS VM is not running, please start VM !!!"
-    pause "Press any key to continue ..."
-    exit 1
-fi
+# check VM status and exit if not running
+###check_vm_status
 
 # Stop VM
 ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no core@$vm_ip sudo halt
@@ -29,28 +21,19 @@ echo "Waiting for VM to shutdown..."
 spin='-\|/'
 i=0
 until "${res_folder}"/check_vm_status.command | grep "VM is stopped" >/dev/null 2>&1; do i=$(( (i+1) %4 )); printf "\r${spin:$i:1}"; sleep .1; done
+i=0
+until [ ! -e ~/coreos-xhyve-ui/.env/.console ] >/dev/null 2>&1; do i=$(( (i+1) %4 )); printf "\r${spin:$i:1}"; sleep .1; done
 #
 
 echo " "
 # Check if set channel's images are present
-CHANNEL=$(cat ~/coreos-xhyve-ui/custom.conf | grep CHANNEL= | head -1 | cut -f2 -d"=")
-LATEST=$(ls -r ~/coreos-xhyve-ui/imgs/${CHANNEL}.*.vmlinuz | head -n 1 | sed -e "s,.*${CHANNEL}.,," -e "s,.coreos_.*,," )
-
-if [[ -z ${LATEST} ]]; then
-    echo "Couldn't find anything to load locally (${CHANNEL} channel)."
-    echo "Fetching lastest $CHANNEL channel ISO ..."
-    echo " "
-    cd ~/coreos-xhyve-ui/
-    "${res_folder}"/bin/coreos-xhyve-fetch -f custom.conf
-fi
+check_for_images
 #
 
-echo " "
 # Start VM
 rm -f ~/coreos-xhyve-ui/.env/.console
 echo "Starting VM ..."
 "${res_folder}"/bin/dtach -n ~/coreos-xhyve-ui/.env/.console -z "${res_folder}"/CoreOS-xhyve_UI_VM.command
-
 #
 
 # wait till VM is booted up
@@ -83,18 +66,9 @@ fleetctl list-machines
 echo ""
 
 # deploy fleet units from ~/coreos-xhyve-ui/fleet
-if [ "$(ls ~/coreos-xhyve-ui/fleet | grep -o -m 1 service)" = "service" ]
-then
-    cd ~/coreos-xhyve-ui/fleet
-    echo " "
-    echo "Starting all fleet units in ~/coreos-xhyve-ui/fleet:"
-    fleetctl start *.service
-    echo " "
-    echo "fleetctl list-units:"
-    fleetctl list-units
-    echo " "
-fi
+deploy_fleet_units
 #
+
 echo "CoreOS VM was reloaded !!!"
 echo ""
 pause 'Press [Enter] key to continue...'
