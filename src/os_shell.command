@@ -12,9 +12,6 @@ res_folder=$(cat ~/coreos-xhyve-ui/.env/resouces_path)
 #vm_ip=$(cat ~/coreos-xhyve-ui/.env/ip_address)
 vm_ip=$(<~/coreos-xhyve-ui/.env/ip_address)
 
-# check VM status and exit if not running
-check_vm_status
-
 # Set the environment variable for the docker daemon
 export DOCKER_HOST=tcp://$vm_ip:2375
 
@@ -23,9 +20,10 @@ export PATH=${HOME}/coreos-xhyve-ui/bin:$PATH
 
 # set etcd endpoint
 export ETCDCTL_PEERS=http://$vm_ip:2379
+echo " "
 echo "etcdctl ls /:"
 etcdctl --no-sync ls /
-echo ""
+echo " "
 
 # set fleetctl endpoint
 export FLEETCTL_ENDPOINT=http://$vm_ip:2379

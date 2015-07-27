@@ -14,8 +14,13 @@ How to install CoreOS-xhyve UI
 
 **WARNING**
  -----------
-  - [xhyve](https://github.com/mist64/xhyve) is a very new project, but is very cool already! You must be running OS X 10.10.3 Yosemite or later and 2010 or later Mac for this to work.
-  - if you use any version of VirtualBox prior to 5.0 then xhyve will crash your system either if VirtualBox is running or had been run previously after the last reboot (see xhyve's issues [#5](mist64/xhyve#5) and [#9](mist64/xhyve#9) for the full context). So, if you are unable to update VirtualBox to version 5, or later, and were using it in your current session please do restart your Mac before attempting to run xhyve.
+  - You must be running OS X 10.10.3 Yosemite or later and 2010 or later Mac for this to work.
+
+  - If you are, or were, running any version of VirtualBox, prior to 4.3.30 or 5.0,
+and attempt to run xhyve your system will immediately crash as a kernel panic is
+triggered. This is due to a VirtualBox bug (that got fixed in newest VirtualBox
+versions) as VirtualBox wasn't playing nice with OSX's Hypervisor.framework used
+by [xhyve](https://github.com/mist64/xhyve). To get around this you either have to update to newest VirtualBox 4.3 or 5.0 or, if you for some reason are unable to update, to reboot your Mac after using VirtualBox and before attempting to use xhyve. (see issues [#5](https://github.com/mist64/xhyve/issues/5) and [#9](https://github.com/mist64/xhyve/issues/9) for the full context)
 
 
 ####Required software:
@@ -32,19 +37,22 @@ and the install will do the following:
 
 
 - All dependent files/folders will be put under "coreos-xhyve-ui" folder in the user's home folder e.g /Users/someuser/coreos-xhyve-ui
+- User's Mac password will be stored in `/Users/someuser/coreos-xhyve-ui/.env/password` and encrypted with `base64`, it will be used to pass to `sudo` command which needs to be used starting VM with xhyve
+- ISO images are stored under ~/.coreos-xhyve/imgs and symlinked to it from ~/coreos-xhyve-ui/imgs
+That allows to share the same images between different coreos-xhyve Apps and also speeds up this App's reinstall
 - user-data file will have fleet, etcd, and Docker Socket for the API enabled
-- Will download latest vagrant VBox and run "vagrant up" to initialise VM with docker 2375 port pre-set for docker OS X client
-- Will download and install fleet, etcd and docker OS X clients to ~/coreos-xhyve-ui/bin/
-- A small shell script "rkt" will be installed to ~/coreos-xhyve-ui/bin/ which allows to call remote rkt binary on CoreOS VM with e.g rkt help
-- docker-exec script (docker exec -it $1 bash -c 'export TERM=xterm && bash') is installed 
+- Will download latest CoreOS ISO image and run `xhyve` to initialise VM with docker 2375 port pre-set for docker OS X client
+- Will download and install `fleetctl` and `docker` OS X clients to ~/coreos-xhyve-ui/bin/
+- A small shell script `rkt` will be installed to ~/coreos-xhyve-ui/bin/ which allows to call via ssh remote `rkt` binary on CoreOS VM
+- A small shell script `etcdctl` will be installed to ~/coreos-xhyve-ui/bin/ which allows to call via ssh remote `etcdctl` binary on CoreOS VM
+- `docker-exec `script (docker exec -it $1 bash -c 'export TERM=xterm && bash') is installed 
  into ~/coreos-xhyve-ui/bin/ too, which allows to enter container with just a simple command:
  docker-exec container_name 
+- Also `docker2aci` binary will be installed to ~/coreos-xhyve-ui/bin/, which allows to convert docker images to rkt aci images
 - Will install DockerUI and Fleet-UI via unit files
 - Via assigned static IP (it will be shown in first boot and will survive VM's reboots) you can access any port on CoreOS VM
 - user-data file enables docker flag `--insecure-registry` to access insecure registries.
-- Extra persistant disk will be created and mounted to /var/lib/docker
-- ISO images are stored under ~/.coreos-xhyve/imgs and symlinked from ~/coreos-xhyve-ui/imgs. 
-That allows to share the same images between different coreos-xhyve Apps and also speeds ups this Apps reinstall.
+- Extra persistant disk will be created and mounted to `/var/lib/docker`
 
 
 How it works
@@ -58,9 +66,9 @@ Just start `CoreOS-xhyve UI` application and you will find a small icon with the
 * Under `Up` OS Shell will be opened when VM boot finishes up and it will have such environment pre-set:
 
 ````
-DOCKER_HOST=tcp://assigned_static_ip:2375
-ETCDCTL_PEERS=http://assigned_static_ip:2379
-FLEETCTL_ENDPOINT=http://assigned_static_ip:2379
+DOCKER_HOST=tcp://192.168.64.xxx:2375
+ETCDCTL_PEERS=http://192.168.64.xxx:2379
+FLEETCTL_ENDPOINT=http://192.168.64.xxx:2379
 FLEETCTL_DRIVER=etcd
 Path to ~/coreos-xhyve-ui/bin where docker and fleetctl binaries, rkt and etcdclt shell 
 scripts are stored
@@ -77,6 +85,7 @@ Also under 'Up" local webserver `python -m SimpleHTTPServer 18000` serves custom
 
 To-dos
 -----------
+* Add Kubernetes solo cluster setup as an extra Add-on option
 * Mount /Users folder via nfs to CoreOS VM
 * Enable/disable menu option depending on VM's status
 

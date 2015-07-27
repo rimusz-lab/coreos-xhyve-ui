@@ -73,7 +73,7 @@ echo " "
 echo " "
 # Start VM
 echo "Starting VM ..."
-"${res_folder}"/bin/dtach -n ~/coreos-xhyve-ui/.env/.console -z "${res_folder}"/CoreOS-xhyve_UI_VM.command
+"${res_folder}"/bin/dtach -n ~/coreos-xhyve-ui/.env/.console -z "${res_folder}"/start_VM.command
 #
 
 # wait till VM is booted up

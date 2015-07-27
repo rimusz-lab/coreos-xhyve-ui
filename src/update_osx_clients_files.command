@@ -16,9 +16,6 @@ vm_ip=$(cat ~/coreos-xhyve-ui/.env/ip_address)
 # path to the bin folder where we store our binary files
 export PATH=${HOME}/coreos-xhyve-ui/bin:$PATH
 
-# check VM status and exit if not running
-check_vm_status
-
 # copy files to ~/coreos-xhyve-ui/bin
 cp -f "${res_folder}"/files/* ~/coreos-xhyve-ui/bin
 # copy xhyve to bin folder

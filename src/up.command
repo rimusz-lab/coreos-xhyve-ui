@@ -17,14 +17,6 @@ vm_ip=$(cat ~/coreos-xhyve-ui/.env/ip_address)
 cp -f "${res_folder}"/bin/xhyve ~/coreos-xhyve-ui/bin
 chmod 755 ~/coreos-xhyve-ui/bin/xhyve
 
-# check if VM is already running
-#status=$(ps aux | grep "[c]oreos-xhyve-ui/bin/xhyve" | awk '{print $2}')
-#if [[ $status = *[!\ ]* ]]; then
-#    echo " "
-#    pause "CoreOS VM is already running, press any key to continue ..."
-#    exit 1
-#fi
-
 # Check if set channel's images are present
 check_for_images
 
@@ -32,7 +24,7 @@ check_for_images
 rm -f ~/coreos-xhyve-ui/.env/.console
 echo " "
 echo "Starting VM ..."
-"${res_folder}"/bin/dtach -n ~/coreos-xhyve-ui/.env/.console -z "${res_folder}"/CoreOS-xhyve_UI_VM.command
+"${res_folder}"/bin/dtach -n ~/coreos-xhyve-ui/.env/.console -z "${res_folder}"/start_VM.command
 #
 
 # wait till VM is booted up
@@ -69,6 +61,8 @@ export FLEETCTL_ENDPOINT=http://$vm_ip:2379
 export FLEETCTL_DRIVER=etcd
 export FLEETCTL_STRICT_HOST_KEY_CHECKING=false
 #
+sleep 1
+
 echo "fleetctl list-machines:"
 fleetctl list-machines
 echo " "

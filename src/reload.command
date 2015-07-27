@@ -11,16 +11,16 @@ res_folder=$(cat ~/coreos-xhyve-ui/.env/resouces_path)
 # get VM IP
 vm_ip=$(<~/coreos-xhyve-ui/.env/ip_address)
 
-# check VM status and exit if not running
-###check_vm_status
-
 # Stop VM
 ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no core@$vm_ip sudo halt
 # wait till VM is stopped
+echo " "
 echo "Waiting for VM to shutdown..."
 spin='-\|/'
 i=0
 until "${res_folder}"/check_vm_status.command | grep "VM is stopped" >/dev/null 2>&1; do i=$(( (i+1) %4 )); printf "\r${spin:$i:1}"; sleep .1; done
+#
+spin='-\|/'
 i=0
 until [ ! -e ~/coreos-xhyve-ui/.env/.console ] >/dev/null 2>&1; do i=$(( (i+1) %4 )); printf "\r${spin:$i:1}"; sleep .1; done
 #
@@ -32,13 +32,14 @@ check_for_images
 
 # Start VM
 rm -f ~/coreos-xhyve-ui/.env/.console
+echo " "
 echo "Starting VM ..."
-"${res_folder}"/bin/dtach -n ~/coreos-xhyve-ui/.env/.console -z "${res_folder}"/CoreOS-xhyve_UI_VM.command
+"${res_folder}"/bin/dtach -n ~/coreos-xhyve-ui/.env/.console -z "${res_folder}"/start_VM.command
 #
 
 # wait till VM is booted up
 echo "You can connect to VM console from menu 'Attach to VM's console' "
-echo "When you done with console just close it's window/tab with cmd+w "
+echo "When you done with console just close it's window/tab with CMD+W "
 echo "Waiting for VM to boot up..."
 spin='-\|/'
 i=0
