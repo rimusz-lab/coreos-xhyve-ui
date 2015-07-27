@@ -26,15 +26,23 @@ do
     if [ $RESPONSE = y ]
     then
         VALID_MAIN=1
-        # Stop VM
-        ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no core@$vm_ip sudo halt
 
-        # wait till VM is stopped
-        echo "Waiting for VM to shutdown..."
-        spin='-\|/'
-        i=0
-        until "${res_folder}"/check_vm_status.command | grep "VM is stopped" >/dev/null 2>&1; do i=$(( (i+1) %4 )); printf "\r${spin:$i:1}"; sleep .1; done
-        #
+        # check VM status
+        status=$(ps aux | grep "[c]oreos-xhyve-ui/bin/xhyve" | awk '{print $2}')
+        if [[ $status = *[!\ ]* ]]; then
+            echo " "
+            echo "CoreOS VM is running, it will be  stopped !!!"
+
+            # Stop VM
+            ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no core@$vm_ip sudo halt
+
+            # wait till VM is stopped
+            echo " "
+            echo "Waiting for VM to shutdown..."
+            spin='-\|/'
+            i=0
+            until "${res_folder}"/check_vm_status.command | grep "VM is stopped" >/dev/null 2>&1; do i=$(( (i+1) %4 )); printf "\r${spin:$i:1}"; sleep .1; done
+        fi
 
         # delete extra.image
         rm -f ~/coreos-xhyve-ui/extra.img
