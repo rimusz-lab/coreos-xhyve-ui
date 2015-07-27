@@ -127,7 +127,7 @@
 
 
 - (IBAction)Stop:(id)sender {
-    int vm_status=[self checkVMStatus];
+    int vm_status = [self checkVMStatus];
     //NSLog (@"VM status:\n%d", vm_status);
     
     if (vm_status == 0) {
@@ -154,6 +154,17 @@
         notification.title = @"CoreOS-xhyve UI";
         notification.informativeText = @"VM is stopping !!!";
         [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:notification];
+        
+        int vm_status_check = 1;
+        while (vm_status_check == 1 ) {
+            vm_status_check = [self checkVMStatus];
+            if (vm_status_check == 0) {
+                notification.title = @"CoreOS-xhyve UI";
+                notification.informativeText = @"VM is OFF !!!";
+                [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:notification];
+                break;
+            }
+        }
     }
 }
 
@@ -302,9 +313,9 @@
 - (IBAction)About:(id)sender {
     
     NSString *version = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
-//    NSString *build = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"];
-//    NSString *app_version = [NSString stringWithFormat:@"%@.%@", version, build];
-    NSString *app_version = [NSString stringWithFormat:@"%@", version];
+    NSString *build = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"];
+    NSString *app_version = [NSString stringWithFormat:@"%@%@.%@", @"v", version, build];
+    //NSString *app_version = [NSString stringWithFormat:@"%@", version];
     
     NSString *mText = [NSString stringWithFormat:@"%@ %@", @"CoreOS-xhyve UI for OS X", app_version];
     NSString *infoText = @"It is a simple wrapper around the CoreOS-xhyve, which allows to control it via the Status Bar !!!";
@@ -314,75 +325,140 @@
 //
 
 - (IBAction)attachConsole:(id)sender {
-    // send a notification on to the screen
-    NSUserNotification *notification = [[NSUserNotification alloc] init];
-    notification.title = @"CoreOS-xhyve UI";
-    notification.informativeText = @"VM's console will be opened";
-    [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:notification];
+    int vm_status=[self checkVMStatus];
+    //NSLog (@"VM status:\n%d", vm_status);
     
-    NSString *appName = [[NSString alloc] init];
-    NSString *arguments = [[NSString alloc] init];
-    [self runApp:appName = @"iTerm" arguments:arguments = [_resoucesPathFromApp stringByAppendingPathComponent:@"console.command"]];
+    if (vm_status == 0) {
+        NSLog (@"VM is Off");
+        // send a notification on to the screen
+        NSUserNotification *notification = [[NSUserNotification alloc] init];
+        notification.title = @"CoreOS-xhyve UI";
+        notification.informativeText = @"VM is Off !!!";
+        [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:notification];
+    }
+    else
+    {
+        NSLog (@"VM is On");
+        // send a notification on to the screen
+        NSUserNotification *notification = [[NSUserNotification alloc] init];
+        notification.title = @"CoreOS-xhyve UI";
+        notification.informativeText = @"VM's console will be opened";
+        [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:notification];
+    
+        NSString *appName = [[NSString alloc] init];
+        NSString *arguments = [[NSString alloc] init];
+        [self runApp:appName = @"iTerm" arguments:arguments = [_resoucesPathFromApp stringByAppendingPathComponent:@"console.command"]];
+    }
 }
 
 
 - (IBAction)runShell:(id)sender {
-    // send a notification on to the screen
-    NSUserNotification *notification = [[NSUserNotification alloc] init];
-    notification.title = @"CoreOS-xhyve UI";
-    notification.informativeText = @"OS X shell will be opened";
-    [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:notification];
+    int vm_status=[self checkVMStatus];
+    //NSLog (@"VM status:\n%d", vm_status);
     
-    NSString *appName = [[NSString alloc] init];
-    NSString *arguments = [[NSString alloc] init];
-    [self runApp:appName = @"iTerm" arguments:arguments = [_resoucesPathFromApp stringByAppendingPathComponent:@"os_shell.command"]];
+    if (vm_status == 0) {
+        NSLog (@"VM is Off");
+        // send a notification on to the screen
+        NSUserNotification *notification = [[NSUserNotification alloc] init];
+        notification.title = @"CoreOS-xhyve UI";
+        notification.informativeText = @"VM is Off !!!";
+        [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:notification];
+    }
+    else
+    {
+        NSLog (@"VM is On");
+        // send a notification on to the screen
+        NSUserNotification *notification = [[NSUserNotification alloc] init];
+        notification.title = @"CoreOS-xhyve UI";
+        notification.informativeText = @"OS X shell will be opened";
+        [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:notification];
+    
+        NSString *appName = [[NSString alloc] init];
+        NSString *arguments = [[NSString alloc] init];
+        [self runApp:appName = @"iTerm" arguments:arguments = [_resoucesPathFromApp stringByAppendingPathComponent:@"os_shell.command"]];
+    }
 }
 
 - (IBAction)runSsh:(id)sender {
-    // send a notification on to the screen
-    NSUserNotification *notification = [[NSUserNotification alloc] init];
-    notification.title = @"CoreOS-xhyve UI";
-    notification.informativeText = @"VM ssh shell will be opened";
-    [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:notification];
+    int vm_status=[self checkVMStatus];
+    //NSLog (@"VM status:\n%d", vm_status);
     
-    NSString *appName = [[NSString alloc] init];
-    NSString *arguments = [[NSString alloc] init];
-    [self runApp:appName = @"iTerm" arguments:arguments = [_resoucesPathFromApp stringByAppendingPathComponent:@"coreos-xhyve.command"]];
+    if (vm_status == 0) {
+        NSLog (@"VM is Off");
+        // send a notification on to the screen
+        NSUserNotification *notification = [[NSUserNotification alloc] init];
+        notification.title = @"CoreOS-xhyve UI";
+        notification.informativeText = @"VM is Off !!!";
+        [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:notification];
+    }
+    else
+    {
+        NSLog (@"VM is On");
+        // send a notification on to the screen
+        NSUserNotification *notification = [[NSUserNotification alloc] init];
+        notification.title = @"CoreOS-xhyve UI";
+        notification.informativeText = @"VM ssh shell will be opened";
+        [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:notification];
+    
+        NSString *appName = [[NSString alloc] init];
+        NSString *arguments = [[NSString alloc] init];
+        [self runApp:appName = @"iTerm" arguments:arguments = [_resoucesPathFromApp stringByAppendingPathComponent:@"coreos-xhyve.command"]];
+    }
 }
 
 
 - (IBAction)fleetUI:(id)sender {
-    // send a notification on to the screen
-    NSUserNotification *notification = [[NSUserNotification alloc] init];
-    notification.title = @"CoreOS-xhyve UI";
-    notification.informativeText = @"Fleet UI dashboard will be opened";
+    int vm_status=[self checkVMStatus];
+    //NSLog (@"VM status:\n%d", vm_status);
     
-    [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:notification];
-    NSString *file_path = [NSHomeDirectory() stringByAppendingPathComponent:@"coreos-xhyve-ui/.env/ip_address"];
-    // read IP from file
-    NSString *vm_ip = [NSString stringWithContentsOfFile:file_path
+    if (vm_status == 0) {
+        NSLog (@"VM is Off");
+        // send a notification on to the screen
+        NSUserNotification *notification = [[NSUserNotification alloc] init];
+        notification.title = @"CoreOS-xhyve UI";
+        notification.informativeText = @"VM is Off !!!";
+        [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:notification];
+    }
+    else
+    {
+        NSLog (@"VM is On");
+        NSString *file_path = [NSHomeDirectory() stringByAppendingPathComponent:@"coreos-xhyve-ui/.env/ip_address"];
+        // read IP from file
+        NSString *vm_ip = [NSString stringWithContentsOfFile:file_path
                                                   encoding:NSUTF8StringEncoding
                                                      error:NULL];
-    NSString *url = [@[@"http://",vm_ip,@":3000"] componentsJoinedByString:@""];
-    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:url]];
+        NSString *url = [@[@"http://",vm_ip,@":3000"] componentsJoinedByString:@""];
+        [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:url]];
+    }
 }
 
 - (IBAction)dockerUI:(id)sender {
-    // send a notification on to the screen
-    NSUserNotification *notification = [[NSUserNotification alloc] init];
-    notification.title = @"CoreOS-xhyve UI";
-    notification.informativeText = @"DockerUI dashboard wiil opened";
-    [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:notification];
+    int vm_status=[self checkVMStatus];
+    //NSLog (@"VM status:\n%d", vm_status);
     
-    NSString *file_path = [NSHomeDirectory() stringByAppendingPathComponent:@"coreos-xhyve-ui/.env/ip_address"];
-    // read IP from file
-    NSString *vm_ip = [NSString stringWithContentsOfFile:file_path
-                                                encoding:NSUTF8StringEncoding
-                                                   error:NULL];
-    NSString *url = [@[@"http://",vm_ip,@":9000"] componentsJoinedByString:@""];
-    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:url]];
+    if (vm_status == 0) {
+        NSLog (@"VM is Off");
+        // send a notification on to the screen
+        NSUserNotification *notification = [[NSUserNotification alloc] init];
+        notification.title = @"CoreOS-xhyve UI";
+        notification.informativeText = @"VM is Off !!!";
+        [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:notification];
+    }
+    else
+    {
+        NSLog (@"VM is On");
+        NSString *file_path = [NSHomeDirectory() stringByAppendingPathComponent:@"coreos-xhyve-ui/.env/ip_address"];
+        // read IP from file
+        NSString *vm_ip = [NSString stringWithContentsOfFile:file_path
+                                                    encoding:NSUTF8StringEncoding
+                                                       error:NULL];
+        NSString *url = [@[@"http://",vm_ip,@":9000"] componentsJoinedByString:@""];
+        [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:url]];
+    }
 }
 
+
+// helping functions
 - (void)runScript:(NSString*)scriptName arguments:(NSString*)arguments
 {
     NSTask *task = [[NSTask alloc] init];

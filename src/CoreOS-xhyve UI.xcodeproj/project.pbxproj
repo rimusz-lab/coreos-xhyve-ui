@@ -10,6 +10,7 @@
 		0106B34A1B65277F001709E0 /* functions.sh in Resources */ = {isa = PBXBuildFile; fileRef = 0106B3491B65277F001709E0 /* functions.sh */; };
 		0111FADB1A7FA2A20021F258 /* os_shell.command in Resources */ = {isa = PBXBuildFile; fileRef = 0111FADA1A7FA2A10021F258 /* os_shell.command */; };
 		0145318418FF209D007F9C95 /* coreos-xhyve.command in Resources */ = {isa = PBXBuildFile; fileRef = 0145318318FF209D007F9C95 /* coreos-xhyve.command */; };
+		01663CC01B667E13008D5D9F /* docker2aci in Resources */ = {isa = PBXBuildFile; fileRef = 01663CBF1B667E13008D5D9F /* docker2aci */; };
 		01741B57190DB7B800BB1F91 /* coreos-xhyve-install.command in Resources */ = {isa = PBXBuildFile; fileRef = 01741B56190DB7B800BB1F91 /* coreos-xhyve-install.command */; };
 		01741B63190DB80500BB1F91 /* first-init.command in Resources */ = {isa = PBXBuildFile; fileRef = 01741B62190DB80500BB1F91 /* first-init.command */; };
 		01741B65190DB81400BB1F91 /* up.command in Resources */ = {isa = PBXBuildFile; fileRef = 01741B64190DB81400BB1F91 /* up.command */; };
@@ -43,6 +44,7 @@
 		0111FADA1A7FA2A10021F258 /* os_shell.command */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = os_shell.command; sourceTree = "<group>"; };
 		0133608F18A70E0C0024B1CB /* CoreOS-xhyve UI.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "CoreOS-xhyve UI.entitlements"; sourceTree = "<group>"; };
 		0145318318FF209D007F9C95 /* coreos-xhyve.command */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = "coreos-xhyve.command"; sourceTree = "<group>"; };
+		01663CBF1B667E13008D5D9F /* docker2aci */ = {isa = PBXFileReference; lastKnownFileType = folder; path = docker2aci; sourceTree = "<group>"; };
 		01741B56190DB7B800BB1F91 /* coreos-xhyve-install.command */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = "coreos-xhyve-install.command"; sourceTree = SOURCE_ROOT; };
 		01741B62190DB80500BB1F91 /* first-init.command */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = "first-init.command"; sourceTree = SOURCE_ROOT; };
 		01741B64190DB81400BB1F91 /* up.command */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = up.command; sourceTree = SOURCE_ROOT; };
@@ -169,6 +171,7 @@
 		01E285B918A6E23C00BC630D /* Scripts */ = {
 			isa = PBXGroup;
 			children = (
+				01663CBF1B667E13008D5D9F /* docker2aci */,
 				01D1B9881B60F2AD0059B73E /* xhyve */,
 				019662111B04C562005FA955 /* bin */,
 				01D1B9861B60D9A70059B73E /* CoreOS-xhyve_UI_VM.command */,
@@ -284,6 +287,7 @@
 				01E2854E18A6C4E300BC630D /* Credits.rtf in Resources */,
 				01E2855418A6C4E300BC630D /* MainMenu.xib in Resources */,
 				01741B67190DB82100BB1F91 /* update_osx_clients_files.command in Resources */,
+				01663CC01B667E13008D5D9F /* docker2aci in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

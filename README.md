@@ -20,32 +20,32 @@ How to install CoreOS-xhyve UI
 
 ####Required software:
 * The only required software is [iTerm 2](http://www.iterm2.com/#/section/downloads) 
-* As [xhyve](https://github.com/mist64/xhyve) is integreted to the App.
+* As [xhyve](https://github.com/mist64/xhyve) comes with the App.
 
 ####Download:
 * Download `CoreOS-xhyve UI latest.dmg` from the [Releases Page](https://github.com/rimusz/coreos-xhyve-ui/releases), open it and drag the App e.g to your Desktop.
 
 ###Install:
-* Start the `CoreOS-xhyve UI` and from menu `Setup` choose `Initial setup of CoreOS-xhyve UI` 
-* The install will do the following:
 
-````
-1) All dependent files/folders will be put under "coreos-xhyve-ui" folder in the user's home 
- folder e.g /Users/someuser/coreos-xhyve-ui
-2) user-data file will have fleet, etcd, and Docker Socket for the API enabled
-3) Will download latest vagrant VBox and run "vagrant up" to initialise VM with docker 2375 port pre-set for docker OS X client
-4) Will download and install fleet, etcd and docker OS X clients to ~/coreos-xhyve-ui/bin/
-5) A small shell script "rkt" will be installed to ~/coreos-xhyve-ui/bin/ which allows to call remote rkt binary on CoreOS VM with e.g rkt help
-6) docker-exec script (docker exec -it $1 bash -c 'export TERM=xterm && bash') is installed 
+Start the `CoreOS-xhyve UI` and from menu `Setup` choose `Initial setup of CoreOS-xhyve UI` 
+and the install will do the following:
+
+
+- All dependent files/folders will be put under "coreos-xhyve-ui" folder in the user's home folder e.g /Users/someuser/coreos-xhyve-ui
+- user-data file will have fleet, etcd, and Docker Socket for the API enabled
+- Will download latest vagrant VBox and run "vagrant up" to initialise VM with docker 2375 port pre-set for docker OS X client
+- Will download and install fleet, etcd and docker OS X clients to ~/coreos-xhyve-ui/bin/
+- A small shell script "rkt" will be installed to ~/coreos-xhyve-ui/bin/ which allows to call remote rkt binary on CoreOS VM with e.g rkt help
+- docker-exec script (docker exec -it $1 bash -c 'export TERM=xterm && bash') is installed 
  into ~/coreos-xhyve-ui/bin/ too, which allows to enter container with just a simple command:
  docker-exec container_name 
-7) Will install DockerUI and Fleet-UI via unit files
-8) Via assigned static IP (it will be shown in first boot and will survive VM's reboots) you can access any port on CoreOS VM
-9) user-data file enables docker flag `--insecure-registry` to access insecure registries.
-10) Extra persistant disk will be created and mounted to /var/lib/docker
-11) ISO images are stored under ~/.coreos-xhyve/imgs and symlinked from ~/coreos-xhyve-ui/imgs. 
+- Will install DockerUI and Fleet-UI via unit files
+- Via assigned static IP (it will be shown in first boot and will survive VM's reboots) you can access any port on CoreOS VM
+- user-data file enables docker flag `--insecure-registry` to access insecure registries.
+- Extra persistant disk will be created and mounted to /var/lib/docker
+- ISO images are stored under ~/.coreos-xhyve/imgs and symlinked from ~/coreos-xhyve-ui/imgs. 
 That allows to share the same images between different coreos-xhyve Apps and also speeds ups this Apps reinstall.
-````
+
 
 How it works
 ------------
@@ -78,7 +78,7 @@ Also under 'Up" local webserver `python -m SimpleHTTPServer 18000` serves custom
 To-dos
 -----------
 * Mount /Users folder via nfs to CoreOS VM
-
+* Enable/disable menu option depending on VM's status
 
 Credits
 -----------

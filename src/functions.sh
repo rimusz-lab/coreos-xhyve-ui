@@ -84,6 +84,7 @@ rm -f fleet.zip
 echo "fleetctl was copied to ~/coreos-xhyve-ui/bin "
 #
 
+echo " "
 # download docker file
 DOCKER_VERSION=$(ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no core@$vm_ip  'docker version' | grep 'Server version:' | cut -d " " -f 3- | tr -d '\r')
 
