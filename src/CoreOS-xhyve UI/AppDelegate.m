@@ -235,7 +235,6 @@
     NSString *appName = [[NSString alloc] init];
     NSString *arguments = [[NSString alloc] init];
     [self runApp:appName = @"iTerm" arguments:arguments = [_resoucesPathFromApp stringByAppendingPathComponent:@"fetch_latest_iso.command"]];
-    //     NSLog(@"Apps arguments: '%@'", [_resoucesPathFromApp stringByAppendingPathComponent:@"update.command"]);
 }
 // Updates menu
 
@@ -402,7 +401,7 @@
     
         NSString *appName = [[NSString alloc] init];
         NSString *arguments = [[NSString alloc] init];
-        [self runApp:appName = @"iTerm" arguments:arguments = [_resoucesPathFromApp stringByAppendingPathComponent:@"coreos-xhyve.command"]];
+        [self runApp:appName = @"iTerm" arguments:arguments = [_resoucesPathFromApp stringByAppendingPathComponent:@"ssh.command"]];
     }
 }
 
@@ -477,7 +476,7 @@
 
 
 - (int)checkVMStatus {
-    // check vm status and return the shell script output
+    // check VM status and return the shell script output
     NSTask *task = [[NSTask alloc] init];
     task.launchPath = [NSString stringWithFormat:@"%@", [[NSBundle mainBundle] pathForResource:@"check_vm_status" ofType:@"command"]];
 //    task.arguments  = @[@"status"];
