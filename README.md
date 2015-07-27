@@ -43,6 +43,8 @@ How to install CoreOS-xhyve UI
 8) Via assigned static IP (it will be shown in first boot and will survive VM's reboots) you can access any port on CoreOS VM
 9) user-data file enables docker flag `--insecure-registry` to access insecure registries.
 10) Extra persistant disk will be created and mounted to /var/lib/docker
+11) ISO images are stored under ~/.coreos-xhyve/imgs and symlinked from ~/.coreos-xhyve-ui/imgs. 
+That allows to share the same images between different coreos-xhyve Apps and also speeds ups this Apps reinstall.
 ````
 
 How it works
