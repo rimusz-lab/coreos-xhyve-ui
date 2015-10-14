@@ -41,25 +41,8 @@ read -s password
 echo -n ${password} | base64 > ~/coreos-xhyve-ui/.env/password
 #
 
-# create persistant disk
-cd ~/coreos-xhyve-ui/
-echo "  "
-echo "Please type extra disk size in GB followed by [ENTER]:"
-echo -n [default is 5]:
-read disk_size
-if [ -z "$disk_size" ]
-then
-    echo "Creating 5GB disk ..."
-    dd if=/dev/zero of=extra.img bs=1024 count=0 seek=$[1024*5120]
-else
-    echo "Creating "$disk_size"GB disk ..."
-    dd if=/dev/zero of=extra.img bs=1024 count=0 seek=$[1024*$disk_size*1024]
-fi
-#
-
 # Set release channel
 release_channel
-
 
 # now let's fetch ISO file
 echo " "
@@ -69,6 +52,9 @@ cd ~/coreos-xhyve-ui/
 "${res_folder}"/bin/coreos-xhyve-fetch -f custom.conf
 echo " "
 #
+
+# create ROOT disk
+create_root_disk
 
 echo " "
 # Start VM

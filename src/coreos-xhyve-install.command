@@ -27,9 +27,11 @@
 
     # copy user-data
     cp -f "$1"/settings/user-data ~/coreos-xhyve-ui/cloud-init
+    cp -f "$1"/settings/user-data-format-root ~/coreos-xhyve-ui/cloud-init
 
     # copy custom.conf
     cp -f "$1"/settings/custom.conf ~/coreos-xhyve-ui
+    cp -f "$1"/settings/custom-format-root.conf ~/coreos-xhyve-ui
 
     # initial init
     open -a iTerm.app "$1"/first-init.command

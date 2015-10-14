@@ -43,6 +43,8 @@ do
         VALID_MAIN=1
         sed -i "" "s/CHANNEL=stable/CHANNEL=alpha/" ~/coreos-xhyve-ui/custom.conf
         sed -i "" "s/CHANNEL=beta/CHANNEL=alpha/" ~/coreos-xhyve-ui/custom.conf
+        sed -i "" "s/CHANNEL=stable/CHANNEL=alpha/" ~/coreos-xhyve-ui/custom-format-root.conf
+        sed -i "" "s/CHANNEL=beta/CHANNEL=alpha/" ~/coreos-xhyve-ui/custom-format-root.conf
         channel="Alpha"
         LOOP=0
     fi
@@ -52,6 +54,8 @@ do
         VALID_MAIN=1
         sed -i "" "s/CHANNEL=alpha/CHANNEL=beta/" ~/coreos-xhyve-ui/custom.conf
         sed -i "" "s/CHANNEL=stable/CHANNEL=beta/" ~/coreos-xhyve-ui/custom.conf
+        sed -i "" "s/CHANNEL=alpha/CHANNEL=beta/" ~/coreos-xhyve-ui/custom-format-root.conf
+        sed -i "" "s/CHANNEL=stable/CHANNEL=beta/" ~/coreos-xhyve-ui/custom-format-root.conf
         channel="Beta"
         LOOP=0
     fi
@@ -61,6 +65,8 @@ do
         VALID_MAIN=1
         sed -i "" "s/CHANNEL=alpha/CHANNEL=stable/" ~/coreos-xhyve-ui/custom.conf
         sed -i "" "s/CHANNEL=beta/CHANNEL=stable/" ~/coreos-xhyve-ui/custom.conf
+        sed -i "" "s/CHANNEL=alpha/CHANNEL=stable/" ~/coreos-xhyve-ui/custom-format-root.conf
+        sed -i "" "s/CHANNEL=beta/CHANNEL=stable/" ~/coreos-xhyve-ui/custom-format-root.conf
         channel="Stable"
         LOOP=0
     fi
@@ -72,6 +78,44 @@ do
 done
 }
 
+
+create_root_disk() {
+# create persistent disk
+cd ~/coreos-xhyve-ui/
+echo "  "
+echo "Please type ROOT disk size in GB followed by [ENTER]:"
+echo -n [default is 5]:
+read disk_size
+if [ -z "$disk_size" ]
+then
+echo "Creating 5GB disk ..."
+dd if=/dev/zero of=root.img bs=1024 count=0 seek=$[1024*5120]
+else
+echo "Creating "$disk_size"GB disk ..."
+dd if=/dev/zero of=root.img bs=1024 count=0 seek=$[1024*$disk_size*1024]
+fi
+#
+
+### format ROOT disk
+# Start webserver
+cd ~/coreos-xhyve-ui/cloud-init
+"${res_folder}"/bin/webserver start
+
+# Get password
+my_password=$(cat ~/coreos-xhyve-ui/.env/password | base64 --decode )
+echo -e "$my_password\n" | sudo ls
+
+# Start VM
+echo "Waiting for VM to boot up... "
+cd ~/coreos-xhyve-ui
+export XHYVE=~/coreos-xhyve-ui/bin/xhyve
+"${res_folder}"/bin/coreos-xhyve-run -f custom-format-root.conf coreos-xhyve-ui
+
+# Stop webserver
+"${res_folder}"/bin/webserver stop
+###
+
+}
 
 function download_osx_clients() {
 # download fleetctl file
