@@ -17,7 +17,7 @@ LOOP=1
 while [ $LOOP -gt 0 ]
 do
     VALID_MAIN=0
-    echo "VM will be stopped and extra disk recreated !!!"
+    echo "VM will be stopped and destroyed !!!"
     echo "Do you want to continue [y/n]"
 
     read RESPONSE
@@ -44,25 +44,11 @@ do
             until "${res_folder}"/check_vm_status.command | grep "VM is stopped" >/dev/null 2>&1; do i=$(( (i+1) %4 )); printf "\r${spin:$i:1}"; sleep .1; done
         fi
 
-        # delete extra.image
-        rm -f ~/coreos-xhyve-ui/extra.img
+        # delete root image
+        rm -f ~/coreos-xhyve-ui/root.img
 
-        # create new extra.image
-        cd ~/coreos-xhyve-ui/
-        echo "  "
-        echo "Please type extra disk size in GB followed by [ENTER]:"
-        echo -n [default is 5]:
-        read disk_size
-        if [ -z "$disk_size" ]
-        then
-            echo "Creating 5GB disk ..."
-            dd if=/dev/zero of=extra.img bs=1024 count=0 seek=$[1024*5120]
-        else
-            echo "Creating "$disk_size"GB disk ..."
-            dd if=/dev/zero of=extra.img bs=1024 count=0 seek=$[1024*$disk_size*1024]
-        fi
         echo "-"
-        echo "Done, please start VM with 'Up' ..."
+        echo "Done, please start VM with 'Up' and the VM will be recreated ..."
         echo " "
         pause 'Press [Enter] key to continue...'
         LOOP=0

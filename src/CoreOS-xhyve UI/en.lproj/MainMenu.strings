@@ -9,7 +9,7 @@
 "DFA-8C-ne3.title" = "Updates";
 
 /* Class = "NSMenuItem"; title = "Recreate extra disk"; ObjectID = "HWe-7a-OCV"; */
-"HWe-7a-OCV.title" = "Recreate extra disk";
+"HWe-7a-OCV.title" = "Destroy VM";
 
 /* Class = "NSMenuItem"; title = "SSH to VM"; ObjectID = "Khg-WF-X5I"; */
 "Khg-WF-X5I.title" = "SSH to VM";
@@ -42,7 +42,7 @@
 "dvF-TI-XNx.title" = "OS Shell";
 
 /* Class = "NSMenuItem"; title = "Change Release Channel (needs reload of VM)"; ObjectID = "lI7-r8-M4c"; */
-"lI7-r8-M4c.title" = "Change Release Channel (needs reload of VM)";
+"lI7-r8-M4c.title" = "Change Release Channel";
 
 /* Class = "NSMenuItem"; title = "Fetch latest CoreOS ISO"; ObjectID = "ozW-cb-XTh"; */
 "ozW-cb-XTh.title" = "Fetch latest CoreOS ISO";

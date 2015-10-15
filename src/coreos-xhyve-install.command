@@ -34,4 +34,4 @@
     cp -f "$1"/settings/custom-format-root.conf ~/coreos-xhyve-ui
 
     # initial init
-    open -a iTerm.app "$1"/first-init.command
+    open -a "$1"/iTerm.app "$1"/first-init.command

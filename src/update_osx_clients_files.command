@@ -1,4 +1,4 @@
-#!/bin/bash 
+#!/bin/bash
 
 #  update OS X clients
 #

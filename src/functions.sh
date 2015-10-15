@@ -133,7 +133,12 @@ echo "fleetctl was copied to ~/coreos-xhyve-ui/bin "
 
 echo " "
 # download docker file
-DOCKER_VERSION=$(ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no core@$vm_ip  'docker version' | grep 'Server version:' | cut -d " " -f 3- | tr -d '\r')
+DOCKER_VERSION=$(ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no core@$vm_ip  'docker version' | grep 'Server version:' | cut -d " " -f 3- | tr -d '\r' | sed 's/^[ \t]*//;s/[ \t]*$//' )
+
+if [ "$DOCKER_VERSION" = "" ]
+then
+    DOCKER_VERSION=$(ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no core@$vm_ip  'docker version' | grep 'Version:' | cut -d " " -f 3- | tr -d '\r' | head -1 | sed 's/^[ \t]*//;s/[ \t]*$//' )
+fi
 
 CHECK_DOCKER_RC=$(echo $DOCKER_VERSION | grep rc)
 if [ -n "$CHECK_DOCKER_RC" ]
@@ -189,3 +194,5 @@ then
     echo " "
 fi
 }
+
+

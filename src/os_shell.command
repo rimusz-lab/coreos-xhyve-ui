@@ -36,6 +36,8 @@ echo "fleetctl list-units:"
 fleetctl list-units
 echo " "
 
+export KUBERNETES_MASTER=http://$vm_ip:8080
+
 cd ~/coreos-xhyve-ui
 
 # open bash shell
