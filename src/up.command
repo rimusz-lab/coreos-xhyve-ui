@@ -20,6 +20,12 @@ chmod 755 ~/coreos-xhyve-ui/bin/xhyve
 # Check if set channel's images are present
 check_for_images
 
+# check if root disk exists, if not create it
+if [ ! -f $HOME/coreos-xhyve-ui/root.img ]; then
+    echo "ROOT disk does not exits, it will be created now ..."
+    create_root_disk
+fi
+
 # Start VM
 rm -f ~/coreos-xhyve-ui/.env/.console
 echo " "

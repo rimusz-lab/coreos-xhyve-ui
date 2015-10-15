@@ -103,13 +103,16 @@ cd ~/coreos-xhyve-ui/cloud-init
 
 # Get password
 my_password=$(cat ~/coreos-xhyve-ui/.env/password | base64 --decode )
-echo -e "$my_password\n" | sudo ls
+echo -e "$my_password\n" | sudo -S ls > /dev/null 2>&1
 
 # Start VM
-echo "Waiting for VM to boot up... "
+echo "Waiting for VM to boot up for ROOT disk to be formated ... "
 cd ~/coreos-xhyve-ui
 export XHYVE=~/coreos-xhyve-ui/bin/xhyve
 "${res_folder}"/bin/coreos-xhyve-run -f custom-format-root.conf coreos-xhyve-ui
+
+echo "ROOT disk got created and formated... "
+echo " "
 
 # Stop webserver
 "${res_folder}"/bin/webserver stop

@@ -3,13 +3,7 @@
 hostname: core-01
 
 coreos:
-  update:
-    reboot-strategy: off
   units:
-    - name: etcd2.service
-      command: stop
-    - name: fleet.service
-      command: stop
     - name: format-ephemeral.service
       command: start
       content: |
