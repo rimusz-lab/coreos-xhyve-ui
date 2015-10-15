@@ -52,7 +52,7 @@ That allows to share the same images between different coreos-xhyve Apps and als
 - Will install DockerUI and Fleet-UI via unit files
 - Via assigned static IP (it will be shown in first boot and will survive VM's reboots) you can access any port on CoreOS VM
 - user-data file enables docker flag `--insecure-registry` to access insecure registries.
-- Extra persistant disk will be created and mounted to `/var/lib/docker`
+- Root persistant disk will be created and mounted to `/` so data will survive VM reboots. 
 
 
 How it works
