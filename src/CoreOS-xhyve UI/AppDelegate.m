@@ -312,12 +312,12 @@
 - (IBAction)About:(id)sender {
     
     NSString *version = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
-    NSString *build = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"];
-    NSString *app_version = [NSString stringWithFormat:@"%@%@.%@", @"v", version, build];
-    //NSString *app_version = [NSString stringWithFormat:@"%@", version];
+//    NSString *build = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"];
+//    NSString *app_version = [NSString stringWithFormat:@"%@%@.%@", @"v", version, build];
+    NSString *app_version = [NSString stringWithFormat:@"%@%@", @"v", version];
     
     NSString *mText = [NSString stringWithFormat:@"%@ %@", @"CoreOS-xhyve UI for OS X", app_version];
-    NSString *infoText = @"It is a simple wrapper around the CoreOS-xhyve, which allows to control it via the Status Bar !!!";
+    NSString *infoText = @"It is a simple wrapper around the xhyve + CoreOS VM, which allows to control VM via the Status Bar App !!!";
     [self displayWithMessage:mText infoText:infoText];
 }
 

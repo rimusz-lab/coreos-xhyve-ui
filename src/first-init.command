@@ -14,7 +14,7 @@ res_folder=$(cat ~/coreos-xhyve-ui/.env/resouces_path)
 export PATH=${HOME}/coreos-xhyve-ui/bin:$PATH
 
 echo " "
-echo "Setting up CoreOS-xhyve VM on OS X"
+echo "Setting up xhyve + CoreOS VM on OS X"
 
 # add ssh key to custom.conf
 echo " "
@@ -33,12 +33,7 @@ fi
 #
 
 # save user password to file
-echo "  "
-echo "Your Mac user password will be saved to '~/coreos-xhyve-ui/.env/password' "
-echo "and later one used for 'sudo' commnand to start VM !!!"
-echo "Please type your Mac user's password followed by [ENTER]:"
-read -s password
-echo -n ${password} | base64 > ~/coreos-xhyve-ui/.env/password
+save_password
 #
 
 # Set release channel
@@ -97,7 +92,9 @@ export FLEETCTL_STRICT_HOST_KEY_CHECKING=false
 echo "fleetctl list-machines:"
 fleetctl list-machines
 echo " "
-
+#
+deploy_fleet_units
+echo " "
 #
 
 echo "Installation has finished, CoreOS VM is up and running !!!"
@@ -108,7 +105,9 @@ echo "Enjoy CoreOS-xhyve VM on your Mac !!!"
 echo " "
 echo "Run from menu 'OS Shell' to open a terninal window with rkt, docker, fleetctl and etcdctl pre-set !!!"
 echo " "
+
 pause 'Press [Enter] key to continue...'
 
+sleep 50
 
 

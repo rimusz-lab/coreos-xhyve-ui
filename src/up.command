@@ -10,20 +10,26 @@ source "${DIR}"/functions.sh
 # get App's Resources folder
 res_folder=$(cat ~/coreos-xhyve-ui/.env/resouces_path)
 
-# get VM IP
-vm_ip=$(cat ~/coreos-xhyve-ui/.env/ip_address)
-
 # copy xhyve to bin folder
 cp -f "${res_folder}"/bin/xhyve ~/coreos-xhyve-ui/bin
 chmod 755 ~/coreos-xhyve-ui/bin/xhyve
 
+# check for password file
+if [ ! -f ~/coreos-xhyve-ui/.env/password ]
+then
+    save_password
+fi
+
 # Check if set channel's images are present
 check_for_images
 
+new_vm=0
 # check if root disk exists, if not create it
-if [ ! -f $HOME/coreos-xhyve-ui/root.img ]; then
+if [ ! -f $HOME/kube-solo/root.img ]; then
+    echo " "
     echo "ROOT disk does not exits, it will be created now ..."
     create_root_disk
+    new_vm=1
 fi
 
 # Start VM
@@ -39,9 +45,15 @@ echo "When you done with console just close it's window/tab with CMD+W "
 echo "Waiting for VM to boot up..."
 spin='-\|/'
 i=0
+while [ ! -f ~/coreos-xhyve-ui/.env/ip_address ]; do i=$(( (i+1) %4 )); printf "\r${spin:$i:1}"; sleep .1; done
+# get VM IP
+vm_ip=$(cat ~/coreos-xhyve-ui/.env/ip_address);
+# wait for VM to be ready
+i=0
 while ! ping -c1 $vm_ip >/dev/null 2>&1; do i=$(( (i+1) %4 )); printf "\r${spin:$i:1}"; sleep .1; done
 
-# Set the environment variable for the docker daemon
+# Set the environment variables
+# docker daemon
 export DOCKER_HOST=tcp://$vm_ip:2375
 
 # path to the bin folder where we store our binary files
@@ -73,11 +85,19 @@ echo "fleetctl list-machines:"
 fleetctl list-machines
 echo " "
 
-# deploy fleet units from ~/coreos-xhyve-ui/fleet
-deploy_fleet_units
-#
+# deploy fleet units
+if [ $new_vm = 1 ]
+then
+    echo "  "
+    deploy_fleet_units
+else
+    echo "  "
+    echo "fleetctl list-units:"
+    fleetctl list-units
+    echo " "
+fi
 
-cd ~/
+cd ~/coreos-xhyve-ui
 
 # open bash shell
 /bin/bash

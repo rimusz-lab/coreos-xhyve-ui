@@ -36,6 +36,7 @@
 		01E2855418A6C4E300BC630D /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01E2855218A6C4E300BC630D /* MainMenu.xib */; };
 		01E2855618A6C4E300BC630D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 01E2855518A6C4E300BC630D /* Images.xcassets */; };
 		01E285B818A6D7F400BC630D /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 01E285B718A6D7F400BC630D /* icon.png */; };
+		131C2B7F1BD686CB002FF9BE /* fleet in Resources */ = {isa = PBXBuildFile; fileRef = 131C2B7E1BD686CB002FF9BE /* fleet */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -78,6 +79,7 @@
 		01E2855518A6C4E300BC630D /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		01E2855C18A6C4E300BC630D /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		01E285B718A6D7F400BC630D /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
+		131C2B7E1BD686CB002FF9BE /* fleet */ = {isa = PBXFileReference; lastKnownFileType = folder; path = fleet; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +99,7 @@
 			children = (
 				019662171B04C6EA005FA955 /* files */,
 				019662131B04C598005FA955 /* settings */,
+				131C2B7E1BD686CB002FF9BE /* fleet */,
 				01741B56190DB7B800BB1F91 /* coreos-xhyve-install.command */,
 				01741B62190DB80500BB1F91 /* first-init.command */,
 			);
@@ -283,6 +286,7 @@
 				01B675D61B602FC2004349CC /* check_vm_status.command in Resources */,
 				0106B34A1B65277F001709E0 /* functions.sh in Resources */,
 				01741B57190DB7B800BB1F91 /* coreos-xhyve-install.command in Resources */,
+				131C2B7F1BD686CB002FF9BE /* fleet in Resources */,
 				01CFC2DE1A2AA48300F251C2 /* change_release_channel.command in Resources */,
 				01E2854E18A6C4E300BC630D /* Credits.rtf in Resources */,
 				01E2855418A6C4E300BC630D /* MainMenu.xib in Resources */,

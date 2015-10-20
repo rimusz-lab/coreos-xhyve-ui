@@ -3,8 +3,6 @@ CoreOS-xhyve UI for OS X
 
 CoreOS-xhyve UI for Mac OS X is a Mac Status bar App which works like a wrapper around the [coreos-xhyve](https://github.com/coreos/coreos-xhyve) command line tool. It supports only a standalone CoreOS VM, cluster one (Vagrant based) is at [CoreOS-Vagrant Cluster GUI](https://github.com/rimusz/coreos-osx-gui-cluster).
 
-Fully supports etcd2 in all CoresOS channels.
-
 
 ![CoreOS-xhyve-UI](coreos-xhyve-ui.png "CoreOS-xhyve-UI")
 
@@ -24,8 +22,7 @@ by [xhyve](https://github.com/mist64/xhyve). To get around this you either have 
 
 
 ####Required software:
-* The only required software is [iTerm 2](http://www.iterm2.com/#/section/downloads) 
-* As [xhyve](https://github.com/mist64/xhyve) comes with the App.
+* The only required software is [iTerm 2](http://www.iterm2.com/#/section/downloads) to be installed on the OS X
 
 ####Download:
 * Download `CoreOS-xhyve UI latest.dmg` from the [Releases Page](https://github.com/rimusz/coreos-xhyve-ui/releases), open it and drag the App e.g to your Desktop.
@@ -48,7 +45,7 @@ That allows to share the same images between different coreos-xhyve Apps and als
 - `docker-exec `script (docker exec -it $1 bash -c 'export TERM=xterm && bash') is installed 
  into ~/coreos-xhyve-ui/bin/ too, which allows to enter container with just a simple command:
  docker-exec container_name 
-- Also `docker2aci` binary will be installed to ~/coreos-xhyve-ui/bin/, which allows to convert docker images to rkt aci images
+- Also `docker2aci` binary will be installed to ~/coreos-xhyve-ui/bin/, which allows to convert docker images to `rkt` aci images
 - Will install DockerUI and Fleet-UI via unit files
 - Via assigned static IP (it will be shown in first boot and will survive VM's reboots) you can access any port on CoreOS VM
 - user-data file enables docker flag `--insecure-registry` to access insecure registries.
@@ -85,9 +82,7 @@ Also under 'Up" local webserver `python -m SimpleHTTPServer 18000` serves custom
 
 To-dos
 -----------
-* Add Kubernetes solo cluster setup as an extra Add-on option
 * Mount /Users folder via nfs to CoreOS VM
-* Enable/disable menu option depending on VM's status
 
 Credits
 -----------

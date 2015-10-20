@@ -31,7 +31,7 @@ do
         status=$(ps aux | grep "[c]oreos-xhyve-ui/bin/xhyve" | awk '{print $2}')
         if [[ $status = *[!\ ]* ]]; then
             echo " "
-            echo "CoreOS VM is running, it will be  stopped !!!"
+            echo "CoreOS VM is running, it will be stopped !!!"
 
             # Stop VM
             ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no core@$vm_ip sudo halt

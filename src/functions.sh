@@ -43,8 +43,6 @@ do
         VALID_MAIN=1
         sed -i "" "s/CHANNEL=stable/CHANNEL=alpha/" ~/coreos-xhyve-ui/custom.conf
         sed -i "" "s/CHANNEL=beta/CHANNEL=alpha/" ~/coreos-xhyve-ui/custom.conf
-        sed -i "" "s/CHANNEL=stable/CHANNEL=alpha/" ~/coreos-xhyve-ui/custom-format-root.conf
-        sed -i "" "s/CHANNEL=beta/CHANNEL=alpha/" ~/coreos-xhyve-ui/custom-format-root.conf
         channel="Alpha"
         LOOP=0
     fi
@@ -54,8 +52,6 @@ do
         VALID_MAIN=1
         sed -i "" "s/CHANNEL=alpha/CHANNEL=beta/" ~/coreos-xhyve-ui/custom.conf
         sed -i "" "s/CHANNEL=stable/CHANNEL=beta/" ~/coreos-xhyve-ui/custom.conf
-        sed -i "" "s/CHANNEL=alpha/CHANNEL=beta/" ~/coreos-xhyve-ui/custom-format-root.conf
-        sed -i "" "s/CHANNEL=stable/CHANNEL=beta/" ~/coreos-xhyve-ui/custom-format-root.conf
         channel="Beta"
         LOOP=0
     fi
@@ -65,8 +61,6 @@ do
         VALID_MAIN=1
         sed -i "" "s/CHANNEL=alpha/CHANNEL=stable/" ~/coreos-xhyve-ui/custom.conf
         sed -i "" "s/CHANNEL=beta/CHANNEL=stable/" ~/coreos-xhyve-ui/custom.conf
-        sed -i "" "s/CHANNEL=alpha/CHANNEL=stable/" ~/coreos-xhyve-ui/custom-format-root.conf
-        sed -i "" "s/CHANNEL=beta/CHANNEL=stable/" ~/coreos-xhyve-ui/custom-format-root.conf
         channel="Stable"
         LOOP=0
     fi
@@ -83,17 +77,18 @@ create_root_disk() {
 # create persistent disk
 cd ~/coreos-xhyve-ui/
 echo "  "
-echo "Please type ROOT disk size in GB followed by [ENTER]:"
+echo "Please type ROOT disk size in GBs followed by [ENTER]:"
 echo -n [default is 5]:
 read disk_size
 if [ -z "$disk_size" ]
 then
-echo "Creating 5GB disk ..."
-dd if=/dev/zero of=root.img bs=1024 count=0 seek=$[1024*5120]
+    echo "Creating 5GB disk ..."
+    dd if=/dev/zero of=root.img bs=1024 count=0 seek=$[1024*5120]
 else
-echo "Creating "$disk_size"GB disk ..."
-dd if=/dev/zero of=root.img bs=1024 count=0 seek=$[1024*$disk_size*1024]
+    echo "Creating "$disk_size"GB disk ..."
+    dd if=/dev/zero of=root.img bs=1024 count=0 seek=$[1024*$disk_size*1024]
 fi
+echo " "
 #
 
 ### format ROOT disk
@@ -109,8 +104,21 @@ echo -e "$my_password\n" | sudo -S ls > /dev/null 2>&1
 echo "Waiting for VM to boot up for ROOT disk to be formated ... "
 cd ~/coreos-xhyve-ui
 export XHYVE=~/coreos-xhyve-ui/bin/xhyve
-"${res_folder}"/bin/coreos-xhyve-run -f custom-format-root.conf coreos-xhyve-ui
 
+# enable format mode
+sed -i "" "s/user-data/user-data-format-root/" ~/coreos-xhyve-ui/custom.conf
+sed -i "" "s/ROOT_HDD=/#ROOT_HDD=/" ~/coreos-xhyve-ui/custom.conf
+sed -i "" "s/#IMG_HDD=/IMG_HDD=/" ~/coreos-xhyve-ui/custom.conf
+#
+"${res_folder}"/bin/coreos-xhyve-run -f custom.conf coreos-xhyve-ui
+#
+# disable format mode
+sed -i "" "s/user-data-format-root/user-data/" ~/coreos-xhyve-ui/custom.conf
+sed -i "" "s/IMG_HDD=/#IMG_HDD=/" ~/coreos-xhyve-ui/custom.conf
+sed -i "" "s/#ROOT_HDD=/ROOT_HDD=/" ~/coreos-xhyve-ui/custom.conf
+#
+
+echo " "
 echo "ROOT disk got created and formated... "
 echo " "
 
@@ -185,8 +193,8 @@ function deploy_fleet_units() {
 if [ "$(ls ~/coreos-xhyve-ui/fleet | grep -o -m 1 service)" = "service" ]
 then
     cd ~/coreos-xhyve-ui/fleet
-    echo " "
-    echo "Starting all fleet units in ~/coreos-xhyve-ui/fleet:"
+    echo "Starting all fleet units in ~/kube-solo/fleet:"
+    fleetctl submit *.service
     fleetctl start *.service
     echo " "
     echo "fleetctl list-units:"
@@ -195,4 +203,15 @@ then
 fi
 }
 
+
+function save_password {
+# save user password to file
+echo "  "
+echo "Your Mac user password will be saved to '~/coreos-xhyve-ui/.env/password' "
+echo "and later one used for 'sudo' commnand to start VM !!!"
+echo "Please type your Mac user's password followed by [ENTER]:"
+read -s password
+echo -n ${password} | base64 > ~/coreos-xhyve-ui/.env/password
+echo " "
+}
 
