@@ -106,7 +106,7 @@ echo " "
 echo "Run from menu 'OS Shell' to open a terninal window with rkt, docker, fleetctl and etcdctl pre-set !!!"
 echo " "
 
-pause 'Press [Enter] key to continue...'
+echo 'This window will close itself in 50 sec ...'
 
 sleep 50
 
