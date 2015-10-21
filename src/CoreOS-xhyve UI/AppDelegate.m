@@ -457,6 +457,32 @@
 }
 
 
+- (IBAction)uploadDockerImages:(id)sender {
+    int vm_status=[self checkVMStatus];
+    //NSLog (@"VM status:\n%d", vm_status);
+    
+    if (vm_status == 0) {
+        NSLog (@"VM is Off");
+        // send a notification on to the screen
+        NSUserNotification *notification = [[NSUserNotification alloc] init];
+        notification.title = @"CoreOS-xhyve UI";
+        notification.informativeText = @"VM is Off !!!";
+        [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:notification];
+    }
+    else
+    {
+        NSUserNotification *notification = [[NSUserNotification alloc] init];
+        notification.title = @"CoreOS-xhyve UI";
+        notification.informativeText = @"Docker images upload window will be opened ...";
+        [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:notification];
+        
+        NSString *appName = [[NSString alloc] init];
+        NSString *arguments = [[NSString alloc] init];
+        [self runApp:appName = @"iTerm" arguments:arguments = [_resoucesPathFromApp stringByAppendingPathComponent:@"upload_docker_images.command"]];
+    }
+}
+
+
 // helping functions
 - (void)runScript:(NSString*)scriptName arguments:(NSString*)arguments
 {

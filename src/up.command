@@ -25,12 +25,19 @@ check_for_images
 
 new_vm=0
 # check if root disk exists, if not create it
-if [ ! -f $HOME/kube-solo/root.img ]; then
+if [ ! -f $HOME/coreos-xhyve-ui/root.img ]; then
     echo " "
     echo "ROOT disk does not exits, it will be created now ..."
     create_root_disk
     new_vm=1
 fi
+
+# Start docker registry
+cd ~/coreos-xhyve-ui
+# stop first just in case it was running
+"${res_folder}"/bin/docker_registry stop
+# start
+"${res_folder}"/bin/docker_registry start
 
 # Start VM
 rm -f ~/coreos-xhyve-ui/.env/.console
@@ -88,15 +95,18 @@ echo " "
 # deploy fleet units
 if [ $new_vm = 1 ]
 then
-    echo "  "
     deploy_fleet_units
-else
-    echo "  "
-    echo "fleetctl list-units:"
-    fleetctl list-units
-    echo " "
 fi
 
+# deploy fleet units from my_fleet folder
+deploy_my_fleet_units
+
+#
+echo "fleetctl list-units:"
+fleetctl list-units
+echo " "
+
+#
 cd ~/coreos-xhyve-ui
 
 # open bash shell

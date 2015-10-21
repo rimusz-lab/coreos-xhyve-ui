@@ -66,8 +66,8 @@ echo "fleetctl list-machines:"
 fleetctl list-machines
 echo ""
 
-# deploy fleet units from ~/coreos-xhyve-ui/fleet
-deploy_fleet_units
+# deploy fleet units from ~/coreos-xhyve-ui/my_fleet
+deploy_my_fleet_units
 #
 
 echo "CoreOS VM was reloaded !!!"

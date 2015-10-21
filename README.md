@@ -3,6 +3,8 @@ CoreOS-xhyve UI for OS X
 
 CoreOS-xhyve UI for Mac OS X is a Mac Status bar App which works like a wrapper around the [coreos-xhyve](https://github.com/coreos/coreos-xhyve) command line tool. It supports only a standalone CoreOS VM, cluster one (Vagrant based) is at [CoreOS-Vagrant Cluster GUI](https://github.com/rimusz/coreos-osx-gui-cluster).
 
+**New:** includes Go based Docker Registry v2 running on `192.168.64.1:5000`, which gets started/stopped on each VM Up/Halt. It is based on Kelsey Hightower [Docker Registry OS X Setup Guide](https://github.com/kelseyhightower/docker-registry-osx-setup-guide), thanks to Kelsey to sharing it with us.
+
 
 ![CoreOS-xhyve-UI](coreos-xhyve-ui.png "CoreOS-xhyve-UI")
 
@@ -22,10 +24,10 @@ by [xhyve](https://github.com/mist64/xhyve). To get around this you either have 
 
 
 ####Required software:
-* The only required software is [iTerm 2](http://www.iterm2.com/#/section/downloads) to be installed on the OS X
+* [iTerm 2](http://www.iterm2.com/#/section/downloads) must be installed on the OS X for the App to be able to work.
 
 ####Download:
-* Download `CoreOS-xhyve UI latest.dmg` from the [Releases Page](https://github.com/rimusz/coreos-xhyve-ui/releases), open it and drag the App e.g to your Desktop.
+* Download `CoreOS-xhyve UI latest.dmg` from the [Releases Page](https://github.com/rimusz/coreos-xhyve-ui/releases), open it and drag the App e.g. to your Desktop.
 
 ###Install:
 
@@ -77,8 +79,9 @@ Also under 'Up" local webserver `python -m SimpleHTTPServer 18000` serves custom
 * `Updates/Fetch latest CoreOS ISO` will download the lasted CoreOS ISO file for the currently set release channel. 
 * [Fleet-UI](http://fleetui.com) dashboard will show running `fleet` units and etc
 * [DockerUI](https://github.com/crosbymichael/dockerui) will show all running containers and etc
-* Put your fleet units into `~/coreos-xhyve-ui/fleet` and they will be automaticly deployed on each VM boot.
-* This App has as much automation as possible to make easier to use CoreOS on OS X, e.g. you can change CoreOS release channel and reload VM and your downloaded docker images will remain stored in an extra persistant disk. 
+* Put your fleet units into `~/coreos-xhyve-ui/my_fleet` folder and they will be automaticly started on each VM boot.
+* You can upload your saved/exported docker images via `Upload docker images`
+* This App has as much automation as possible to make easier to use CoreOS on OS X, e.g. you can change CoreOS release channel and reload VM as `root` persistant disk for VM will be created and mounted to `/` so data will survive VM reboots.
 
 To-dos
 -----------
@@ -90,10 +93,9 @@ Credits
 * To CoreOS team for [coreos-xhyve](https://github.com/coreos/coreos-xhyve) version
 * To [Antonio Meireles](https://github.com/AntonioMeireles) for his awesome tweaks spree to improve coreos-xhyve
 
-Other links for Vagrant based VMs
+Other links
 -----------
-* A standalone CoreOS VM version of OS X App can be found here [CoreOS-Vagrant GUI](https://github.com/rimusz/coreos-osx-gui).
 * Cluster one CoreOS VM App can be found here [CoreOS-Vagrant Cluster GUI](https://github.com/rimusz/coreos-osx-gui-cluster).
-* A standalone Kubernetes CoreOS VM App can be found here [CoreOS-Vagrant Kubernetes Solo GUI](https://github.com/rimusz/coreos-osx-gui-kubernetes-solo).
+* A Kubernetes Solo Cluster VM App can be found here [Kube Solo](https://github.com/rimusz/kube-solo-osx).
 * Kubernetes Cluster one CoreOS VM App can be found here [CoreOS-Vagrant Kubernetes Cluster GUI ](https://github.com/rimusz/coreos-osx-gui-kubernetes-cluster).
 
