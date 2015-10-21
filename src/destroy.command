@@ -47,6 +47,9 @@ do
         # delete root image
         rm -f ~/coreos-xhyve-ui/root.img
 
+        # Stop docker registry
+        "${res_folder}"/bin/docker_registry stop
+
         echo "-"
         echo "Done, please start VM with 'Up' and the VM will be recreated ..."
         echo " "

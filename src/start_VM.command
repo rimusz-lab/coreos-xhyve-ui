@@ -30,3 +30,5 @@ export XHYVE=~/coreos-xhyve-ui/bin/xhyve
 
 # Stop webserver
 "${res_folder}"/bin/webserver stop
+
+

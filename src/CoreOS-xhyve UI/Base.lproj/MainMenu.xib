@@ -73,6 +73,13 @@
                         <action selector="dockerUI:" target="494" id="KoG-12-koe"/>
                     </connections>
                 </menuItem>
+                <menuItem isSeparatorItem="YES" id="mOo-Gt-R7Y"/>
+                <menuItem title="Upload docker images" id="78F-Ma-der">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="uploadDockerImages:" target="494" id="TpT-N3-aUr"/>
+                    </connections>
+                </menuItem>
                 <menuItem isSeparatorItem="YES" id="Gmy-Y5-bmI"/>
                 <menuItem title="Updates" id="VT6-tu-oxP" userLabel="Menu Item - Updates">
                     <modifierMask key="keyEquivalentModifierMask"/>

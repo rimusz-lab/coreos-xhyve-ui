@@ -37,6 +37,8 @@
 		01E2855618A6C4E300BC630D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 01E2855518A6C4E300BC630D /* Images.xcassets */; };
 		01E285B818A6D7F400BC630D /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 01E285B718A6D7F400BC630D /* icon.png */; };
 		131C2B7F1BD686CB002FF9BE /* fleet in Resources */ = {isa = PBXBuildFile; fileRef = 131C2B7E1BD686CB002FF9BE /* fleet */; settings = {ASSET_TAGS = (); }; };
+		134AB3351BD7D11400D55BC4 /* registry in Resources */ = {isa = PBXBuildFile; fileRef = 134AB3341BD7D11400D55BC4 /* registry */; settings = {ASSET_TAGS = (); }; };
+		134AB3371BD7ECAB00D55BC4 /* upload_docker_images.command in Resources */ = {isa = PBXBuildFile; fileRef = 134AB3361BD7ECAB00D55BC4 /* upload_docker_images.command */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -80,6 +82,8 @@
 		01E2855C18A6C4E300BC630D /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		01E285B718A6D7F400BC630D /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
 		131C2B7E1BD686CB002FF9BE /* fleet */ = {isa = PBXFileReference; lastKnownFileType = folder; path = fleet; sourceTree = SOURCE_ROOT; };
+		134AB3341BD7D11400D55BC4 /* registry */ = {isa = PBXFileReference; lastKnownFileType = folder; path = registry; sourceTree = "<group>"; };
+		134AB3361BD7ECAB00D55BC4 /* upload_docker_images.command */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = upload_docker_images.command; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -175,6 +179,7 @@
 			isa = PBXGroup;
 			children = (
 				01663CBF1B667E13008D5D9F /* docker2aci */,
+				134AB3341BD7D11400D55BC4 /* registry */,
 				01D1B9881B60F2AD0059B73E /* xhyve */,
 				019662111B04C562005FA955 /* bin */,
 				01D1B9861B60D9A70059B73E /* start_VM.command */,
@@ -190,6 +195,7 @@
 				01CFC2DD1A2AA48300F251C2 /* reload.command */,
 				01AD94BE1A278C94009A400B /* fetch_latest_iso.command */,
 				01741B66190DB82100BB1F91 /* update_osx_clients_files.command */,
+				134AB3361BD7ECAB00D55BC4 /* upload_docker_images.command */,
 			);
 			name = Scripts;
 			sourceTree = "<group>";
@@ -266,6 +272,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				019662121B04C562005FA955 /* bin in Resources */,
+				134AB3351BD7D11400D55BC4 /* registry in Resources */,
 				01E2854818A6C4E300BC630D /* InfoPlist.strings in Resources */,
 				01D3685918E5C184006510B5 /* icon.icns in Resources */,
 				01E285B818A6D7F400BC630D /* icon.png in Resources */,
@@ -280,6 +287,7 @@
 				0111FADB1A7FA2A20021F258 /* os_shell.command in Resources */,
 				019662141B04C598005FA955 /* settings in Resources */,
 				01E2855618A6C4E300BC630D /* Images.xcassets in Resources */,
+				134AB3371BD7ECAB00D55BC4 /* upload_docker_images.command in Resources */,
 				01D1B9871B60D9A70059B73E /* start_VM.command in Resources */,
 				019662181B04C6EA005FA955 /* files in Resources */,
 				01741B63190DB80500BB1F91 /* first-init.command in Resources */,

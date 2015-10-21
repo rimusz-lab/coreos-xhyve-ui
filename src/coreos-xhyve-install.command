@@ -11,7 +11,9 @@
     mkdir ~/coreos-xhyve-ui/bin
     mkdir ~/coreos-xhyve-ui/cloud-init
     mkdir ~/coreos-xhyve-ui/fleet
-    ###mkdir ~/coreos-xhyve-ui/docker_images
+    mkdir ~/coreos-xhyve-ui/my_fleet
+    mkdir ~/coreos-xhyve-ui/registry
+    mkdir ~/coreos-xhyve-ui/docker_images
     ###mkdir ~/coreos-xhyve-ui/rkt_images
 
     # cd to App's Resources folder

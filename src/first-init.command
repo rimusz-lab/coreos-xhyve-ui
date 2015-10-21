@@ -51,6 +51,14 @@ echo " "
 # create ROOT disk
 create_root_disk
 
+# Start docker registry
+cd ~/coreos-xhyve-ui
+# stop first just in case it was running
+"${res_folder}"/bin/docker_registry stop
+# start
+"${res_folder}"/bin/docker_registry start
+#
+
 echo " "
 # Start VM
 echo "Starting VM ..."
@@ -84,6 +92,10 @@ echo " "
 # download latest versions of etcdctl, fleetctl and docker clients
 download_osx_clients
 #
+
+# Set the environment variables
+# docker daemon
+export DOCKER_HOST=tcp://$vm_ip:2375
 
 # set fleetctl endpoint and install fleet units
 export FLEETCTL_ENDPOINT=http://$vm_ip:2379

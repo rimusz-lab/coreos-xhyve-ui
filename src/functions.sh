@@ -193,12 +193,20 @@ function deploy_fleet_units() {
 if [ "$(ls ~/coreos-xhyve-ui/fleet | grep -o -m 1 service)" = "service" ]
 then
     cd ~/coreos-xhyve-ui/fleet
-    echo "Starting all fleet units in ~/kube-solo/fleet:"
+    echo "Starting all fleet units in ~/coreos-xhyve-ui/fleet:"
     fleetctl submit *.service
     fleetctl start *.service
     echo " "
-    echo "fleetctl list-units:"
-    fleetctl list-units
+fi
+}
+
+function deploy_my_fleet_units() {
+# deploy fleet units from ~/coreos-xhyve-ui/fleet
+if [ "$(ls ~/coreos-xhyve-ui/my_fleet | grep -o -m 1 service)" = "service" ]
+then
+    cd ~/coreos-xhyve-ui/my_fleet
+    echo "Starting all fleet units in ~/coreos-xhyve-ui/my_fleet:"
+    fleetctl start *.service
     echo " "
 fi
 }
