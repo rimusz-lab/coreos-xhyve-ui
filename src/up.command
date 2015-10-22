@@ -14,9 +14,13 @@ res_folder=$(cat ~/coreos-xhyve-ui/.env/resouces_path)
 cp -f "${res_folder}"/bin/xhyve ~/coreos-xhyve-ui/bin
 chmod 755 ~/coreos-xhyve-ui/bin/xhyve
 
+# Stop webserver just in case it was left running
+"${res_folder}"/bin/webserver stop
+
 # check for password file
 if [ ! -f ~/coreos-xhyve-ui/.env/password ]
 then
+    echo "File with saved password is not found: "
     save_password
 fi
 
@@ -27,7 +31,7 @@ new_vm=0
 # check if root disk exists, if not create it
 if [ ! -f $HOME/coreos-xhyve-ui/root.img ]; then
     echo " "
-    echo "ROOT disk does not exits, it will be created now ..."
+    echo "ROOT disk does not exist, it will be created now ..."
     create_root_disk
     new_vm=1
 fi

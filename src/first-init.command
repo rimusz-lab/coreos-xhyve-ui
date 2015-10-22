@@ -18,18 +18,19 @@ echo "Setting up xhyve + CoreOS VM on OS X"
 
 # add ssh key to custom.conf
 echo " "
-echo "Reading ssh key from $HOME/.ssh/id_rsa.pub  "
+echo "Reading ssh key from $HOME/.ssh/id_rsa.pub ..."
 file="$HOME/.ssh/id_rsa.pub"
-if [ -f "$file" ]
-then
-    echo "$file found, updating custom.conf..."
-    echo "SSHKEY='$(cat $HOME/.ssh/id_rsa.pub)'" >> ~/coreos-xhyve-ui/custom.conf
-else
+
+while [ ! -f "$file" ]
+do
     echo "$file not found."
     echo "please run 'ssh-keygen -t rsa' before you continue !!!"
     pause 'Press [Enter] key to continue...'
-    echo "SSHKEY="$(cat $HOME/.ssh/id_rsa.pub)"" >> ~/coreos-xhyve-ui/custom.conf
-fi
+done
+
+echo " "
+echo "$file found, updating custom.conf..."
+echo "SSHKEY='$(cat $HOME/.ssh/id_rsa.pub)'" >> ~/coreos-xhyve-ui/custom.conf
 #
 
 # save user password to file

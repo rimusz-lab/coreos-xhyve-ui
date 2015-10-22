@@ -483,6 +483,51 @@
 }
 
 
+- (IBAction)quit:(id)sender {
+    int vm_status = [self checkVMStatus];
+    //NSLog (@"VM status:\n%d", vm_status);
+    
+    if (vm_status == 0) {
+        NSLog (@"VM is Off");
+    }
+    else
+    {
+        NSLog (@"VM is On");
+        // send a notification on to the screen
+        NSUserNotification *notification = [[NSUserNotification alloc] init];
+        notification.title = @"CoreOS-xhyve UI";
+        notification.informativeText = @"VM will be stopped";
+        [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:notification];
+        
+        NSString *scriptName = [[NSString alloc] init];
+        NSString *arguments = [[NSString alloc] init];
+        [self runScript:scriptName = @"halt" arguments:arguments = @""];
+        
+        notification.title = @"CoreOS-xhyve UI";
+        notification.informativeText = @"VM is stopping !!!";
+        [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:notification];
+        
+        int vm_status_check = 1;
+        while (vm_status_check == 1 ) {
+            vm_status_check = [self checkVMStatus];
+            if (vm_status_check == 0) {
+                notification.title = @"CoreOS-xhyve UI";
+                notification.informativeText = @"VM is OFF !!!";
+                [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:notification];
+                break;
+            }
+        }
+    }
+    
+    // send a notification on to the screen
+    NSUserNotification *notification = [[NSUserNotification alloc] init];
+    notification.title = @"Quiting CoreOS-xhyve UI App";
+    [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:notification];
+    
+    exit(0);
+}
+
+
 // helping functions
 - (void)runScript:(NSString*)scriptName arguments:(NSString*)arguments
 {
