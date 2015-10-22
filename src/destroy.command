@@ -13,6 +13,9 @@ res_folder=$(cat ~/coreos-xhyve-ui/.env/resouces_path)
 # get VM IP
 vm_ip=$(<~/coreos-xhyve-ui/.env/ip_address)
 
+# Stop docker registry
+"${res_folder}"/bin/docker_registry stop
+
 LOOP=1
 while [ $LOOP -gt 0 ]
 do

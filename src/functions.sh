@@ -220,6 +220,7 @@ echo "and later one used for 'sudo' commnand to start VM !!!"
 echo "Please type your Mac user's password followed by [ENTER]:"
 read -s password
 echo -n ${password} | base64 > ~/coreos-xhyve-ui/.env/password
+chmod 600 ~/coreos-xhyve-ui/.env/password
 echo " "
 }
 
