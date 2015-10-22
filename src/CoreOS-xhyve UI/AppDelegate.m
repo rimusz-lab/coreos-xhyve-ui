@@ -521,7 +521,7 @@
     
     // send a notification on to the screen
     NSUserNotification *notification = [[NSUserNotification alloc] init];
-    notification.title = @"Quiting CoreOS-xhyve UI App";
+    notification.title = @"Quitting CoreOS-xhyve UI App";
     [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:notification];
     
     exit(0);
